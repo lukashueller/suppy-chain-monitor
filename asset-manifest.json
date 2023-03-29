@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/supply-chain-monitor/static/css/main.073c9b0a.css",
+    "main.js": "/supply-chain-monitor/static/js/main.a86fd29b.js",
+    "index.html": "/supply-chain-monitor/index.html",
+    "main.073c9b0a.css.map": "/supply-chain-monitor/static/css/main.073c9b0a.css.map",
+    "main.a86fd29b.js.map": "/supply-chain-monitor/static/js/main.a86fd29b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.a86fd29b.js"
+  ]
+}
