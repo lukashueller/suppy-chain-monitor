@@ -12,7 +12,7 @@ const Modeler = () => {
       style={{ backgroundColor: "#E0E0E0", height: "100vh" }}
     >
       <HeaderNavbar selectedKey={2} />
-      <Title>This page is currently under construction</Title>
+      <Title>This page is currently under construction!</Title>
     </Row>
   );
 };
