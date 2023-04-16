@@ -1,11 +1,6 @@
 import React from "react";
-import { Button } from "antd";
+//import {  } from "antd";
 
-const Modeler = () => (
-  <>
-    MODELER
-    <Button type="primary">Button</Button>
-  </>
-);
+const Modeler = () => <>MOIN</>;
 
 export default Modeler;
