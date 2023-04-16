@@ -1,11 +1,15 @@
 import React from "react";
 import { HomeOutlined } from "@ant-design/icons";
-import { Button, Row, Space } from "antd";
+import { Button, Row, Space, Grid } from "antd";
 import { Link } from "react-router-dom";
 
 import customNotification from "../../../utils/notificationUtils";
 
+const { useBreakpoint } = Grid;
+
 const HeaderNavbar = (props) => {
+  const screens = useBreakpoint();
+
   const { selectedKey } = props;
   //const ICON_KEY = 0;
   const SUPPLIER_OVERVIEW_PAGE_KEY = 1;
@@ -51,56 +55,65 @@ const HeaderNavbar = (props) => {
     );
   };
 
-  return (
-    <Row
-      style={{
-        width: "100vw",
-        backgroundColor: "#1A314E",
-        padding: "1rem",
-        height: "10vh",
-      }}
-      justify="space-between"
-    >
-      <Space direction="horizontal">
-        <Link to="/">
+  const returnWideNavbar = () => {
+    return (
+      <Row
+        style={{
+          width: "100vw",
+          backgroundColor: "#1A314E",
+          padding: "1rem",
+          height: "10vh",
+        }}
+        justify="space-between"
+      >
+        <Space direction="horizontal">
+          <Link to="/">
+            <Button
+              type="text"
+              icon={<HomeOutlined />}
+              style={{ color: "white" }}
+            />
+          </Link>
           <Button
             type="text"
-            icon={<HomeOutlined />}
             style={{ color: "white" }}
-          />
-        </Link>
-        <Button
-          type="text"
-          style={{ color: "white" }}
-          onClick={() => handleButtonClick()}
-        >
-          About us!
-        </Button>
-      </Space>
+            onClick={() => handleButtonClick()}
+          >
+            About us!
+          </Button>
+        </Space>
 
-      <Space direction="horizontal">
-        {returnOverviewButton()}
-        {returnInsightsButton()}
-      </Space>
+        <Space direction="horizontal">
+          {returnOverviewButton()}
+          {returnInsightsButton()}
+        </Space>
 
-      <Space direction="horizontal">
-        <Button
-          type="text"
-          style={{ color: "white" }}
-          onClick={() => handleButtonClick()}
-        >
-          Sign Up
-        </Button>
-        <Button
-          type="text"
-          style={{ color: "white" }}
-          onClick={() => handleButtonClick()}
-        >
-          Log In
-        </Button>
-      </Space>
-    </Row>
-  );
+        <Space direction="horizontal">
+          <Button
+            type="text"
+            style={{ color: "white" }}
+            onClick={() => handleButtonClick()}
+          >
+            Sign Up
+          </Button>
+          <Button
+            type="text"
+            style={{ color: "white" }}
+            onClick={() => handleButtonClick()}
+          >
+            Log In
+          </Button>
+        </Space>
+      </Row>
+    );
+  };
+
+  const returnMobileSidebar = () => {
+    // TODO
+  };
+
+  return <>{returnWideNavbar()}</>;
+  //TODO: return <>{screens.md ? returnWideNavbar() : returnMobileSidebar()}</>;
 };
 
 export default HeaderNavbar;
