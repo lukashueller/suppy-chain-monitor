@@ -2,7 +2,7 @@ import "./Home.css";
 
 import React from "react";
 import { Space, Button, Typography, Row, Col } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const { Title } = Typography;
@@ -35,7 +35,7 @@ const Home = () => {
               <Button>Learn more</Button>
               <Link to="/modeler">
                 <Button type="primary">
-                  Try it out <DownloadOutlined />
+                  Try it out <RightOutlined />
                 </Button>
               </Link>
             </Space>
