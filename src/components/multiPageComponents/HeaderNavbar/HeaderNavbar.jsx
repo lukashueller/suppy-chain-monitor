@@ -3,7 +3,45 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Button, Row, Space } from "antd";
 import { Link } from "react-router-dom";
 
-const HeaderNavbar = () => {
+const HeaderNavbar = (props) => {
+  const { selectedKey } = props;
+  //const ICON_KEY = 0;
+  const SUPPLIER_OVERVIEW_PAGE_KEY = 1;
+  const SC_INSIGHTS_PAGE_KEY = 2;
+
+  let onOverview = false;
+  let onSCInsights = false;
+  if (selectedKey === SUPPLIER_OVERVIEW_PAGE_KEY) {
+    onOverview = true;
+  }
+  if (selectedKey === SC_INSIGHTS_PAGE_KEY) {
+    onSCInsights = true;
+  }
+
+  const returnOverviewButton = () => {
+    if (onOverview) {
+      return <Button type="primary">Supplier Overview</Button>;
+    } else {
+      return (
+        <Link to="/modeler">
+          <Button>Supplier Overview</Button>
+        </Link>
+      );
+    }
+  };
+
+  const returnInsightsButton = () => {
+    if (onSCInsights) {
+      return <Button type="primary">Supply Chain Insights</Button>;
+    } else {
+      return (
+        <Link to="/insights">
+          <Button>Supply Chain Insights</Button>
+        </Link>
+      );
+    }
+  };
+
   return (
     <Row
       style={{
@@ -28,8 +66,8 @@ const HeaderNavbar = () => {
       </Space>
 
       <Space direction="horizontal">
-        <Button> Supplier Overview</Button>
-        <Button> Supply Chain Insights</Button>
+        {returnOverviewButton()}
+        {returnInsightsButton()}
       </Space>
 
       <Space direction="horizontal">

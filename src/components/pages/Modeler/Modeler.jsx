@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Space, Select } from "antd";
 
-import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar";
+import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 
 const Modeler = () => {
   const supplierArray = [
@@ -24,7 +24,7 @@ const Modeler = () => {
       direction="vertical"
       style={{ backgroundColor: "#E0E0E0", height: "100vh" }}
     >
-      <HeaderNavbar />
+      <HeaderNavbar selectedKey={1} />
       <Space
         style={{ width: "100vw", padding: "1rem 1rem" }}
         direction="vertical"
