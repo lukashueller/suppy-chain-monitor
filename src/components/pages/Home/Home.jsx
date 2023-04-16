@@ -18,7 +18,7 @@ const Home = () => {
         xxl={6}
         style={{
           backgroundColor: "#1A314E",
-          height: "50vh",
+          minHeight: "50vh",
           marginTop: "30vh",
         }}
       >
