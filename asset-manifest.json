@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/supply-chain-monitor/static/css/main.073c9b0a.css",
-    "main.js": "/supply-chain-monitor/static/js/main.a86fd29b.js",
+    "main.css": "/supply-chain-monitor/static/css/main.9830723d.css",
+    "main.js": "/supply-chain-monitor/static/js/main.1256bfe6.js",
+    "static/media/home-bg.jpg": "/supply-chain-monitor/static/media/home-bg.166e6a4ef7bc4a4ac31e.jpg",
     "index.html": "/supply-chain-monitor/index.html",
-    "main.073c9b0a.css.map": "/supply-chain-monitor/static/css/main.073c9b0a.css.map",
-    "main.a86fd29b.js.map": "/supply-chain-monitor/static/js/main.a86fd29b.js.map"
+    "main.9830723d.css.map": "/supply-chain-monitor/static/css/main.9830723d.css.map",
+    "main.1256bfe6.js.map": "/supply-chain-monitor/static/js/main.1256bfe6.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.a86fd29b.js"
+    "static/css/main.9830723d.css",
+    "static/js/main.1256bfe6.js"
   ]
 }
