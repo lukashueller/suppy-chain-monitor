@@ -1,7 +1,7 @@
 import React from "react";
-import { HomeOutlined } from "@ant-design/icons";
-import { Button, Row, Col, Space, Select } from "antd";
-import { Link } from "react-router-dom";
+import { Row, Col, Space, Select } from "antd";
+
+import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar";
 
 const Modeler = () => {
   const supplierArray = [
@@ -20,37 +20,25 @@ const Modeler = () => {
   ];
 
   return (
-    <Space direction="vertical">
-      <Row
-        style={{
-          width: "100vw",
-          backgroundColor: "#1A314E",
-          padding: "1rem",
-        }}
-        justify="space-between"
+    <Space
+      direction="vertical"
+      style={{ backgroundColor: "#E0E0E0", height: "100vh" }}
+    >
+      <HeaderNavbar />
+      <Space
+        style={{ width: "100vw", padding: "1rem 1rem" }}
+        direction="vertical"
+        size={"large"}
       >
-        <Space direction="horizontal">
-          <Link to="/">
-            <Button type="text" block icon={<HomeOutlined />} />
-          </Link>
-          <Button> About us!</Button>
-        </Space>
-
-        <Space direction="horizontal">
-          <Button> Supplier Overview</Button>
-          <Button> Supply Chain Insights</Button>
-        </Space>
-
-        <Space direction="horizontal">
-          <Button> Sign Up</Button>
-          <Button> Log In</Button>
-        </Space>
-      </Row>
-      <Space style={{ width: "100vw", padding: "1rem" }} direction="vertical">
         <Row style={{ width: "100vw", textAlign: "center" }} align="middle">
-          <Col span={24} style={{ textAlign: "center" }}>
-            Hier könnte Ihr Text stehen!
+          <Col span={3} />
+          <Col span={18} style={{ textAlign: "center" }}>
+            Are you tired of spending countless hours searching for the right
+            suppliers for your business? Do you want to streamline your
+            procurement process and save valuable time and resources? Then it's
+            time to enter your suppliers into our database!
           </Col>
+          <Col span={3} />
         </Row>
         <Select
           style={{ width: "100%" }}
