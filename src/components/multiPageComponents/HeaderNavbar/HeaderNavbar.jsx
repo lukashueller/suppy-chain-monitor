@@ -3,6 +3,8 @@ import { HomeOutlined } from "@ant-design/icons";
 import { Button, Row, Space } from "antd";
 import { Link } from "react-router-dom";
 
+import customNotification from "../../../utils/notificationUtils";
+
 const HeaderNavbar = (props) => {
   const { selectedKey } = props;
   //const ICON_KEY = 0;
@@ -42,6 +44,13 @@ const HeaderNavbar = (props) => {
     }
   };
 
+  const handleButtonClick = () => {
+    customNotification(
+      "Warning",
+      "The functionality of this page is currently not implemented"
+    );
+  };
+
   return (
     <Row
       style={{
@@ -60,7 +69,11 @@ const HeaderNavbar = (props) => {
             style={{ color: "white" }}
           />
         </Link>
-        <Button type="text" style={{ color: "white" }}>
+        <Button
+          type="text"
+          style={{ color: "white" }}
+          onClick={() => handleButtonClick()}
+        >
           About us!
         </Button>
       </Space>
@@ -71,10 +84,18 @@ const HeaderNavbar = (props) => {
       </Space>
 
       <Space direction="horizontal">
-        <Button type="text" style={{ color: "white" }}>
+        <Button
+          type="text"
+          style={{ color: "white" }}
+          onClick={() => handleButtonClick()}
+        >
           Sign Up
         </Button>
-        <Button type="text" style={{ color: "white" }}>
+        <Button
+          type="text"
+          style={{ color: "white" }}
+          onClick={() => handleButtonClick()}
+        >
           Log In
         </Button>
       </Space>
