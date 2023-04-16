@@ -31,7 +31,7 @@ const Modeler = () => {
       >
         <Space direction="horizontal">
           <Link to="/">
-            <Button type="primary" icon={<HomeOutlined />} />
+            <Button type="text" block icon={<HomeOutlined />} />
           </Link>
           <Button> About us!</Button>
         </Space>

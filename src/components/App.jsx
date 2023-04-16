@@ -7,9 +7,9 @@ import Error from "./pages/Error/Error";
 import "./App.css";
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename="/suppy-chain-monitor">
     <Routes>
-      <Route path="/" element={<Home />} exact />
+      <Route exact path="/" element={<Home />} />
       <Route path="/modeler" element={<Modeler />} />
       <Route path="*" element={<Error />} />
       {/* <Route path="/somethingwithId/:id" element={somethingwithId} /> */}

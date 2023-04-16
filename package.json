@@ -1,7 +1,7 @@
 {
   "name": "supply-chain-monitor",
   "version": "0.1.0",
-  "homepage": "https://lukashueller.github.io/supply-chain-monitor",
+  "homepage": "https://lukashueller.github.io/suppy-chain-monitor/",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.4",
