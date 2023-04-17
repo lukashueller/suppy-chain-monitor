@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Space, Select, Card, Typography } from "antd";
+import { Row, Col, Space, Select, Card, Typography, Button } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
+
+import { UploadOutlined } from "@ant-design/icons";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
 
@@ -75,11 +77,11 @@ const Modeler = () => {
     >
       <HeaderNavbar selectedKey={1} />
       <Space
-        style={{ width: "100vw", padding: "1rem 1rem" }}
+        style={{ width: "100vw", padding: "1rem" }}
         direction="vertical"
         size={"large"}
       >
-        <Row style={{ width: "100vw", textAlign: "center" }} align="middle">
+        <Row style={{ width: "100vw", textAlign: "center" }}>
           <Col span={3} />
           <Col span={18} style={{ textAlign: "center" }}>
             Are you tired of spending countless hours searching for the right
@@ -89,14 +91,26 @@ const Modeler = () => {
           </Col>
           <Col span={3} />
         </Row>
-        <Select
-          style={{ width: "100%" }}
-          showSearch
-          placeholder="Enter the name of your supplier"
-          options={filteredOptions}
-          onChange={(val) => newSupplierEntered(val)}
-          allowClear
-        />
+
+        <Row gutter={16}>
+          <Col xs={24} sm={18} xl={20} xxl={22}>
+            <Select
+              style={{ width: "100%" }}
+              showSearch
+              placeholder="Enter the name of your supplier"
+              options={filteredOptions}
+              onChange={(val) => newSupplierEntered(val)}
+            />
+          </Col>
+
+          <Col xs={24} sm={6} xl={4} xxl={2}>
+            <Button type="primary" style={{ width: "100%" }}>
+              <UploadOutlined />
+              bulk upload
+            </Button>
+          </Col>
+        </Row>
+
         <Space direction="vertical" style={{ width: "100%" }}>
           {returnSupplierBoxes()}
         </Space>
