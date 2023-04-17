@@ -1,9 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Space, Select } from "antd";
+import { Row, Col, Space, Select, Card, Typography } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
+
+const { Title } = Typography;
+
+const supplierArray = [
+  {
+    value: "mercedes_benz",
+    label: "Mercedes Benz",
+  },
+  {
+    value: "siemens",
+    label: "Siemens",
+  },
+  {
+    value: "schrauben_achim",
+    label: "Schrauben Achim",
+  },
+  {
+    value: "reifen_rudi",
+    label: "Reifen Rudi",
+  },
+  {
+    value: "bosch_ag",
+    label: "Bosch AG",
+  },
+];
 
 const Modeler = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
@@ -24,25 +49,21 @@ const Modeler = () => {
     setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
   };
 
-  const supplierArray = [
-    {
-      value: "mercedes_benz",
-      label: "Mercedes Benz",
-    },
-    {
-      value: "siemens",
-      label: "Siemens",
-    },
-    {
-      value: "schrauben_achim",
-      label: "Schrauben Achim",
-    },
-  ];
+  const filteredOptions = supplierArray.map((el) => {
+    if (!usersTierOneSuppliers.includes(el.value)) {
+      return { value: el.value, label: el.label, disabled: false };
+    }
+    return { value: el.value, label: el.label, disabled: true };
+  });
 
   const returnSupplierBoxes = () => {
     if (usersTierOneSuppliers.length !== 0) {
       return usersTierOneSuppliers.map((val) => {
-        return <>{val} </>;
+        return (
+          <Card type="inner" style={{ width: "100%" }}>
+            {val}
+          </Card>
+        );
       });
     }
   };
@@ -72,11 +93,13 @@ const Modeler = () => {
           style={{ width: "100%" }}
           showSearch
           placeholder="Enter the name of your supplier"
-          options={supplierArray}
+          options={filteredOptions}
           onChange={(val) => newSupplierEntered(val)}
           allowClear
         />
-        {returnSupplierBoxes()}
+        <Space direction="vertical" style={{ width: "100%" }}>
+          {returnSupplierBoxes()}
+        </Space>
       </Space>
     </Space>
   );
