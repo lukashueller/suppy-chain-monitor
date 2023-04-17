@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Space, Select } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 
+import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
+
 const Modeler = () => {
+  const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
+
+  useEffect(() => {
+    initSessionStorage("currentUserId", "80625d115100a2ee8d8e695b");
+    /*     getListOfAllSuppliers()
+      .then((response) => response.json())
+      .then((data) => {
+        initSessionStorage("listOfAllSuppliers", JSON.stringify([]));
+        sessionStorage.setItem("listOfAllSuppliers", JSON.stringify(data));
+      });*/
+  }, []);
+
+  useEffect(() => {}, [usersTierOneSuppliers]);
+
+  const newSupplierEntered = (value) => {
+    setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
+  };
+
   const supplierArray = [
     {
       value: "mercedes_benz",
@@ -18,6 +38,14 @@ const Modeler = () => {
       label: "Schrauben Achim",
     },
   ];
+
+  const returnSupplierBoxes = () => {
+    if (usersTierOneSuppliers.length !== 0) {
+      return usersTierOneSuppliers.map((val) => {
+        return <>{val} </>;
+      });
+    }
+  };
 
   return (
     <Space
@@ -44,9 +72,11 @@ const Modeler = () => {
           style={{ width: "100%" }}
           showSearch
           placeholder="Enter the name of your supplier"
-          /*onSearch={onSearch}*/
           options={supplierArray}
+          onChange={(val) => newSupplierEntered(val)}
+          allowClear
         />
+        {returnSupplierBoxes()}
       </Space>
     </Space>
   );
