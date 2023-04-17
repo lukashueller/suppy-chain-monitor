@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Space, Select, Button } from "antd";
-
-import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
-
 import { UploadOutlined } from "@ant-design/icons";
 
-import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
+import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import SupplierBox from "./SupplierBox/SupplierBox.jsx";
+
+import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
+import customNotification from "../../../utils/notificationUtils.jsx";
 
 const supplierArray = [
   {
@@ -58,6 +58,13 @@ const Modeler = () => {
     }
   };
 
+  const bulkUploadClick = () => {
+    customNotification(
+      "Warning",
+      "This function is currently not implemented!"
+    );
+  };
+
   const filteredOptions = supplierArray.map((el) => {
     if (!usersTierOneSuppliers.includes(el.value)) {
       return { value: el.value, label: el.label, disabled: false };
@@ -99,7 +106,11 @@ const Modeler = () => {
           </Col>
 
           <Col xs={24} sm={6} xl={4} xxl={2}>
-            <Button type="primary" style={{ width: "100%" }}>
+            <Button
+              type="primary"
+              style={{ width: "100%" }}
+              onClick={() => bulkUploadClick()}
+            >
               <UploadOutlined />
               bulk upload
             </Button>
