@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Space, Select, Card, Typography, Button } from "antd";
+import { Row, Col, Space, Select, Button } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 
 import { UploadOutlined } from "@ant-design/icons";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
-
-const { Title } = Typography;
+import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 
 const supplierArray = [
   {
@@ -27,8 +26,8 @@ const supplierArray = [
     label: "Reifen Rudi",
   },
   {
-    value: "bosch_ag",
-    label: "Bosch AG",
+    value: "bosch_technik_gmbh",
+    label: "Bosch Technik GmbH",
   },
 ];
 
@@ -51,24 +50,20 @@ const Modeler = () => {
     setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
   };
 
+  const renderSupplierBoxes = () => {
+    if (usersTierOneSuppliers.length !== 0) {
+      return usersTierOneSuppliers.map((val) => {
+        return <SupplierBox supplier={val} />;
+      });
+    }
+  };
+
   const filteredOptions = supplierArray.map((el) => {
     if (!usersTierOneSuppliers.includes(el.value)) {
       return { value: el.value, label: el.label, disabled: false };
     }
     return { value: el.value, label: el.label, disabled: true };
   });
-
-  const returnSupplierBoxes = () => {
-    if (usersTierOneSuppliers.length !== 0) {
-      return usersTierOneSuppliers.map((val) => {
-        return (
-          <Card type="inner" style={{ width: "100%" }}>
-            {val}
-          </Card>
-        );
-      });
-    }
-  };
 
   return (
     <Space
@@ -112,7 +107,7 @@ const Modeler = () => {
         </Row>
 
         <Space direction="vertical" style={{ width: "100%" }}>
-          {returnSupplierBoxes()}
+          {renderSupplierBoxes()}
         </Space>
       </Space>
     </Space>
