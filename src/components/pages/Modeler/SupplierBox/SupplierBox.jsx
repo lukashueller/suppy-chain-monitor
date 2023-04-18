@@ -6,11 +6,10 @@ import { DeleteOutlined } from "@ant-design/icons";
 const { Text, Title } = Typography;
 
 const SupplierBox = (props) => {
-  const { supplier } = props;
+  const { supplier, onSupplierDeletion } = props;
 
   const handleDeletionClick = () => {
-    console.log("clicked!" + supplier);
-    // TODO: Handle Click in Modelers State
+    onSupplierDeletion(supplier);
   };
 
   return (

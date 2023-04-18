@@ -46,6 +46,12 @@ const Modeler = () => {
 
   useEffect(() => {}, [usersTierOneSuppliers]);
 
+  const onSupplierDeletion = (supplier) => {
+    let newSupplierList = usersTierOneSuppliers;
+    newSupplierList = newSupplierList.filter((item) => item !== supplier);
+    setUsersTierOneSuppliers(newSupplierList);
+  };
+
   const newSupplierEntered = (value) => {
     setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
   };
@@ -53,7 +59,12 @@ const Modeler = () => {
   const renderSupplierBoxes = () => {
     if (usersTierOneSuppliers.length !== 0) {
       return usersTierOneSuppliers.map((val) => {
-        return <SupplierBox supplier={val} />;
+        return (
+          <SupplierBox
+            supplier={val}
+            onSupplierDeletion={(supplier) => onSupplierDeletion(supplier)}
+          />
+        );
       });
     }
   };
