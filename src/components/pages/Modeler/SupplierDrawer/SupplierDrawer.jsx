@@ -8,7 +8,7 @@ const SupplierDrawer = (props) => {
   const { open, closeDrawer, companyData } = props;
 
   const returnCountries = () => {
-    if (companyData.countries.length === 0) return <></>;
+    if (companyData.countries.length === 0) return null;
     const allCountries = companyData.countries.map((country, index) => {
       if (index < companyData.countries.length - 1) {
         return <Text key={index}>{country}, </Text>;
@@ -26,7 +26,7 @@ const SupplierDrawer = (props) => {
   };
 
   const returnAllMaterials = () => {
-    if (companyData.materials.length === 0) return <></>;
+    if (companyData.materials.length === 0) return null;
     const allMaterials = companyData.materials.map((material, index) => {
       if (index < companyData.materials.length - 1) {
         return <Text key={index}>{material}, </Text>;
@@ -44,7 +44,7 @@ const SupplierDrawer = (props) => {
   };
 
   const returnSources = () => {
-    if (companyData.esg_data.length === 0) return <></>;
+    if (companyData.esg_data.length === 0) return null;
     const allSources = companyData.esg_data.map((source, index) => {
       if (index < companyData.esg_data.length - 1) {
         return (
@@ -86,8 +86,7 @@ const SupplierDrawer = (props) => {
   };
 
   const returnRiskSection = () => {
-    console.log(companyData);
-    if (companyData.found_risks.length === 0 || !("found_risks" in companyData)) return <></>;
+    if (companyData.found_risks.length === 0 || !("found_risks" in companyData)) return null;
     const highRisks = companyData.found_risks.filter((risk) => risk.risk === "high");
     const mediumRisks = companyData.found_risks.filter((risk) => risk.risk === "medium");
 
@@ -117,8 +116,12 @@ const SupplierDrawer = (props) => {
 
     return (
       <Space direction="vertical" style={{ width: "100%" }}>
-        {returnRiskCard("high", "rgba(234, 84, 85, 0.7)", highRisks.length)}
-        {returnRiskCard("medium", "rgba(255,165,0, 0.7)", mediumRisks.length)}
+        {highRisks.length > 0
+          ? returnRiskCard("high", "rgba(234, 84, 85, 0.7)", highRisks.length)
+          : null}
+        {mediumRisks.length > 0
+          ? returnRiskCard("medium", "rgba(255,165,0, 0.7)", mediumRisks.length)
+          : null}
         <div style={{ whiteSpace: "nowrap" }}>{returnSources()}</div>
       </Space>
     );
