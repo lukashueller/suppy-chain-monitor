@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Card, Button, Row, Typography, Drawer, Space } from "antd";
 
 import { DeleteOutlined } from "@ant-design/icons";
+import { getDataForCompany } from "../../../../utils/api";
 
 const { Text, Title } = Typography;
 
 const SupplierBox = (props) => {
   const { supplier, onSupplierDeletion, index } = props;
   const [open, setOpen] = useState(false);
+
+  const companyData = getDataForCompany(supplier);
 
   const handleDeletionClick = () => {
     onSupplierDeletion(supplier);
@@ -23,7 +26,7 @@ const SupplierBox = (props) => {
   const returnDrawer = () => {
     return (
       <Drawer
-        title={"More Information about: " + supplier}
+        title={"More Information about: " + companyData.label}
         size="large"
         onClose={closeDrawer}
         open={open}
@@ -57,7 +60,7 @@ const SupplierBox = (props) => {
             alignItems: "center",
           }}
         >
-          <Text strong>{supplier}</Text>
+          <Text strong>{companyData.label}</Text>
           <Button
             icon={<DeleteOutlined />}
             onClick={() => handleDeletionClick()}

@@ -6,18 +6,15 @@ import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.js
 import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
-import customNotification from "../../../utils/notificationUtils.jsx";
-import { getAllCompanyNames, getCompleteDatabase } from "../../../utils/api.js";
+import { getCompleteDatabase } from "../../../utils/api.js";
+import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 
 const Modeler = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
-  const [companyNames, setCompanyNames] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchAsyncData() {
-      const companyList = await getAllCompanyNames();
-      setCompanyNames(companyList);
-
       const completeDB = await getCompleteDatabase();
       initSessionStorage("completeDB", JSON.stringify(completeDB));
     }
@@ -28,8 +25,9 @@ const Modeler = () => {
 
   const returnSupplierListForDropdown = () => {
     const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
+    if (completeDB === null) return [];
     return completeDB.companies.map((el) => {
-      return { label: el.company, value: el.label };
+      return { label: el.label, value: el.value };
     });
   };
 
@@ -58,10 +56,7 @@ const Modeler = () => {
   };
 
   const bulkUploadClick = () => {
-    customNotification(
-      "Warning",
-      "This function is currently not implemented!"
-    );
+    setModalOpen(true);
   };
 
   const filteredOptions = returnSupplierListForDropdown().map((el) => {
@@ -76,6 +71,7 @@ const Modeler = () => {
       direction="vertical"
       style={{ backgroundColor: "#E0E0E0", height: "100vh" }}
     >
+      <UploadDataModal open={modalOpen} close={() => setModalOpen(false)} />
       <HeaderNavbar selectedKey={1} />
       <Space
         style={{ width: "100vw", padding: "1rem" }}
