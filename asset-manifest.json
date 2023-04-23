@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/suppy-chain-monitor/static/css/main.4678c29d.css",
-    "main.js": "/suppy-chain-monitor/static/js/main.80bacec4.js",
+    "main.js": "/suppy-chain-monitor/static/js/main.7bcfec8f.js",
     "static/media/home-bg.jpg": "/suppy-chain-monitor/static/media/home-bg.166e6a4ef7bc4a4ac31e.jpg",
     "index.html": "/suppy-chain-monitor/index.html",
     "main.4678c29d.css.map": "/suppy-chain-monitor/static/css/main.4678c29d.css.map",
-    "main.80bacec4.js.map": "/suppy-chain-monitor/static/js/main.80bacec4.js.map"
+    "main.7bcfec8f.js.map": "/suppy-chain-monitor/static/js/main.7bcfec8f.js.map"
   },
   "entrypoints": [
     "static/css/main.4678c29d.css",
-    "static/js/main.80bacec4.js"
+    "static/js/main.7bcfec8f.js"
   ]
 }
