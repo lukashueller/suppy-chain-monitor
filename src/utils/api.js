@@ -1,8 +1,6 @@
 async function getAllCompanyNames() {
   try {
-    const response = await fetch(
-      "https://tierx.onrender.com/all_company_names"
-    );
+    const response = await fetch("https://tierx.onrender.com/all_company_names");
     return await response.json();
   } catch (error) {
     console.error(error);
@@ -31,6 +29,7 @@ const getDataForCompany = (companyName) => {
   } */
 
   const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
+  console.log(completeDB.companies.find((company) => company.value === companyName).found_risks);
   return completeDB.companies.find((company) => company.value === companyName);
 };
 

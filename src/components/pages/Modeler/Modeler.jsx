@@ -76,28 +76,20 @@ const Modeler = () => {
   });
 
   return (
-    <Space
-      direction="vertical"
-      style={{ backgroundColor: "#E0E0E0", height: "100vh" }}
-    >
+    <Space direction="vertical" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
       <UploadDataModal
         open={modalOpen}
         close={() => setModalOpen(false)}
         handleSuccessfulUpload={(response) => handleSuccessfulUpload(response)}
       />
       <HeaderNavbar selectedKey={1} />
-      <Space
-        style={{ width: "100vw", padding: "1rem" }}
-        direction="vertical"
-        size={"large"}
-      >
+      <Space style={{ width: "100vw", padding: "1rem" }} direction="vertical" size={"large"}>
         <Row style={{ width: "100vw", textAlign: "center" }}>
           <Col span={3} />
           <Col span={18} style={{ textAlign: "center" }}>
-            Are you tired of spending countless hours searching for the right
-            suppliers for your business? Do you want to streamline your
-            procurement process and save valuable time and resources? Then it's
-            time to enter your suppliers into our database!
+            Are you tired of spending countless hours searching for the right suppliers for your
+            business? Do you want to streamline your procurement process and save valuable time and
+            resources? Then it's time to enter your suppliers into our database!
           </Col>
           <Col span={3} />
         </Row>
@@ -114,11 +106,7 @@ const Modeler = () => {
           </Col>
 
           <Col xs={24} sm={6} xl={4} xxl={2}>
-            <Button
-              type="primary"
-              style={{ width: "100%" }}
-              onClick={() => bulkUploadClick()}
-            >
+            <Button type="primary" style={{ width: "100%" }} onClick={() => bulkUploadClick()}>
               <UploadOutlined />
               bulk upload
             </Button>

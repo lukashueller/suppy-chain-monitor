@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { Card, Button, Row, Typography, Drawer, Space, Tooltip } from "antd";
 
-import {
-  DeleteOutlined,
-  WarningOutlined,
-  QuestionCircleOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, WarningOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { getDataForCompany } from "../../../../utils/api";
 import SupplierDrawer from "../SupplierDrawer/SupplierDrawer";
 
 const { Text, Title } = Typography;
 
 const SupplierBox = (props) => {
-  const { supplier, onSupplierDeletion, index } = props;
+  const { supplier, onSupplierDeletion } = props;
   const [open, setOpen] = useState(false);
 
   const companyData = getDataForCompany(supplier);
@@ -55,6 +51,14 @@ const SupplierBox = (props) => {
         </Tooltip>
       );
     }
+
+    if (companyData.esg_data_status === "unprovided") {
+      return (
+        <Tooltip title="Uncertain Data Situation">
+          <QuestionCircleOutlined style={{ color: "grey" }} />
+        </Tooltip>
+      );
+    }
   };
 
   return (
@@ -84,19 +88,12 @@ const SupplierBox = (props) => {
           <Space direction="horizontal" size="large">
             {returnDataStatusIcon()}
             {returnRiskIcon()}
-            <Button
-              icon={<DeleteOutlined />}
-              onClick={() => handleDeletionClick()}
-            />
+            <Button icon={<DeleteOutlined />} onClick={() => handleDeletionClick()} />
           </Space>
         </Row>
       </Card>
 
-      <SupplierDrawer
-        open={open}
-        closeDrawer={() => closeDrawer()}
-        companyData={companyData}
-      />
+      <SupplierDrawer open={open} closeDrawer={() => closeDrawer()} companyData={companyData} />
     </>
   );
 };
