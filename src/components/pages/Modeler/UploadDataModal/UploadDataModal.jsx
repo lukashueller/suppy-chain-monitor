@@ -23,7 +23,7 @@ const UploadDataModal = (props) => {
   return (
     <>
       <Modal
-        title="Upload Lift of Suppliers or Purchase Data"
+        title="Upload List of Suppliers or Purchase Data"
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
