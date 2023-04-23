@@ -31,6 +31,15 @@ const Modeler = () => {
     });
   };
 
+  const handleSuccessfulUpload = (response) => {
+    const newSuppliers = [];
+    response.company_dist_values.forEach((company) => {
+      newSuppliers.push(company);
+    });
+
+    setUsersTierOneSuppliers(newSuppliers);
+  };
+
   const onSupplierDeletion = (supplier) => {
     let newSupplierList = usersTierOneSuppliers;
     newSupplierList = newSupplierList.filter((item) => item !== supplier);
@@ -71,7 +80,11 @@ const Modeler = () => {
       direction="vertical"
       style={{ backgroundColor: "#E0E0E0", height: "100vh" }}
     >
-      <UploadDataModal open={modalOpen} close={() => setModalOpen(false)} />
+      <UploadDataModal
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        handleSuccessfulUpload={(response) => handleSuccessfulUpload(response)}
+      />
       <HeaderNavbar selectedKey={1} />
       <Space
         style={{ width: "100vw", padding: "1rem" }}

@@ -5,7 +5,7 @@ import { useState } from "react";
 const { Dragger } = Upload;
 
 const UploadDataModal = (props) => {
-  const { open, close } = props;
+  const { open, close, handleSuccessfulUpload } = props;
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const handleOk = () => {
@@ -13,7 +13,7 @@ const UploadDataModal = (props) => {
     setTimeout(() => {
       close();
       setConfirmLoading(false);
-    }, 2000);
+    }, 20);
   };
 
   const handleCancel = () => {
@@ -34,6 +34,7 @@ const UploadDataModal = (props) => {
           maxCount={1}
           action="https://tierx.onrender.com/purchasing_upload"
           method="POST"
+          onSuccess={(response) => handleSuccessfulUpload(response)}
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
