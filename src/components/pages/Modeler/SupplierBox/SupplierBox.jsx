@@ -6,7 +6,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 const { Text, Title } = Typography;
 
 const SupplierBox = (props) => {
-  const { supplier, onSupplierDeletion } = props;
+  const { supplier, onSupplierDeletion, index } = props;
   const [open, setOpen] = useState(false);
 
   const handleDeletionClick = () => {
@@ -27,6 +27,7 @@ const SupplierBox = (props) => {
         size="large"
         onClose={closeDrawer}
         open={open}
+        key={index}
         extra={
           <Space>
             <Button onClick={closeDrawer}>Cancel</Button>

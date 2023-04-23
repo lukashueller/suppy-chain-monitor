@@ -7,44 +7,31 @@ import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
 import customNotification from "../../../utils/notificationUtils.jsx";
-
-const supplierArray = [
-  {
-    value: "mercedes_benz",
-    label: "Mercedes Benz",
-  },
-  {
-    value: "siemens",
-    label: "Siemens",
-  },
-  {
-    value: "schrauben_achim",
-    label: "Schrauben Achim",
-  },
-  {
-    value: "reifen_rudi",
-    label: "Reifen Rudi",
-  },
-  {
-    value: "bosch_technik_gmbh",
-    label: "Bosch Technik GmbH",
-  },
-];
+import { getAllCompanyNames, getCompleteDatabase } from "../../../utils/api.js";
 
 const Modeler = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
+  const [companyNames, setCompanyNames] = useState([]);
 
   useEffect(() => {
+    async function fetchAsyncData() {
+      const companyList = await getAllCompanyNames();
+      setCompanyNames(companyList);
+
+      const completeDB = await getCompleteDatabase();
+      initSessionStorage("completeDB", JSON.stringify(completeDB));
+    }
+
+    fetchAsyncData();
     initSessionStorage("currentUserId", "80625d115100a2ee8d8e695b");
-    /*     getListOfAllSuppliers()
-      .then((response) => response.json())
-      .then((data) => {
-        initSessionStorage("listOfAllSuppliers", JSON.stringify([]));
-        sessionStorage.setItem("listOfAllSuppliers", JSON.stringify(data));
-      });*/
   }, []);
 
-  useEffect(() => {}, [usersTierOneSuppliers]);
+  const returnSupplierListForDropdown = () => {
+    const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
+    return completeDB.companies.map((el) => {
+      return { label: el.company, value: el.label };
+    });
+  };
 
   const onSupplierDeletion = (supplier) => {
     let newSupplierList = usersTierOneSuppliers;
@@ -58,10 +45,11 @@ const Modeler = () => {
 
   const renderSupplierBoxes = () => {
     if (usersTierOneSuppliers.length !== 0) {
-      return usersTierOneSuppliers.map((val) => {
+      return usersTierOneSuppliers.map((val, index) => {
         return (
           <SupplierBox
             supplier={val}
+            key={index}
             onSupplierDeletion={(supplier) => onSupplierDeletion(supplier)}
           />
         );
@@ -76,7 +64,7 @@ const Modeler = () => {
     );
   };
 
-  const filteredOptions = supplierArray.map((el) => {
+  const filteredOptions = returnSupplierListForDropdown().map((el) => {
     if (!usersTierOneSuppliers.includes(el.value)) {
       return { value: el.value, label: el.label, disabled: false };
     }
