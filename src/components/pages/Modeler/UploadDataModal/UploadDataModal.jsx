@@ -20,34 +20,10 @@ const UploadDataModal = (props) => {
     close();
   };
 
-  const handleFileUpload = (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const url = "https://tierx.onrender.com/purchasing_upload";
-
-    return fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          message.success("File uploaded successfully");
-          return file;
-        } else {
-          throw new Error("Failed to upload file");
-        }
-      })
-      .catch((error) => {
-        message.error(error.message);
-        throw error;
-      });
-  };
-
   return (
     <>
       <Modal
-        title="Upload Company List or Purchase Data"
+        title="Upload Lift of Suppliers or Purchase Data"
         open={open}
         onOk={handleOk}
         confirmLoading={confirmLoading}
@@ -56,13 +32,8 @@ const UploadDataModal = (props) => {
         <Dragger
           accept=".xlsx, .xls"
           maxCount={1}
-          onChange={(info) => {
-            const { file } = info;
-            handleFileUpload(file);
-          }}
           action="https://tierx.onrender.com/purchasing_upload"
           method="POST"
-          /* beforeUpload={handleFileUpload} */
         >
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
