@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { Card, Button, Row, Typography, Drawer, Space } from "antd";
+import { Card, Button, Row, Typography, Drawer, Space, Tooltip } from "antd";
 
-import { DeleteOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  WarningOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 import { getDataForCompany } from "../../../../utils/api";
+import SupplierDrawer from "../SupplierDrawer/SupplierDrawer";
 
 const { Text, Title } = Typography;
 
@@ -19,27 +24,37 @@ const SupplierBox = (props) => {
   const openDrawer = () => {
     setOpen(true);
   };
+
   const closeDrawer = () => {
     setOpen(false);
   };
 
-  const returnDrawer = () => {
-    return (
-      <Drawer
-        title={"More Information about: " + companyData.label}
-        size="large"
-        onClose={closeDrawer}
-        open={open}
-        key={index}
-        extra={
-          <Space>
-            <Button onClick={closeDrawer}>Cancel</Button>
-          </Space>
-        }
-      >
-        <p>Some contents...</p>
-      </Drawer>
-    );
+  const returnRiskIcon = () => {
+    if (companyData.estimated_risk === "medium") {
+      return (
+        <Tooltip title="Medium ESG-Risk Estimated">
+          <WarningOutlined style={{ color: "orange" }} />
+        </Tooltip>
+      );
+    }
+
+    if (companyData.estimated_risk === "high") {
+      return (
+        <Tooltip title="High ESG-Risk Estimated">
+          <WarningOutlined style={{ color: "red" }} />
+        </Tooltip>
+      );
+    }
+  };
+
+  const returnDataStatusIcon = () => {
+    if (companyData.esg_data_status === "from tierx supplier") {
+      return (
+        <Tooltip title="Uncertain Data Situation">
+          <QuestionCircleOutlined style={{ color: "grey" }} />
+        </Tooltip>
+      );
+    }
   };
 
   return (
@@ -60,15 +75,28 @@ const SupplierBox = (props) => {
             alignItems: "center",
           }}
         >
-          <Text strong>{companyData.label}</Text>
-          <Button
-            icon={<DeleteOutlined />}
-            onClick={() => handleDeletionClick()}
-          />
+          <Space direction="horizontal">
+            <Text strong>{companyData.label}</Text>
+            <Text strong> | </Text>
+            <Text style={{ color: "grey" }}> {companyData.size} </Text>
+          </Space>
+
+          <Space direction="horizontal" size="large">
+            {returnDataStatusIcon()}
+            {returnRiskIcon()}
+            <Button
+              icon={<DeleteOutlined />}
+              onClick={() => handleDeletionClick()}
+            />
+          </Space>
         </Row>
       </Card>
 
-      {returnDrawer()}
+      <SupplierDrawer
+        open={open}
+        closeDrawer={() => closeDrawer()}
+        companyData={companyData}
+      />
     </>
   );
 };
