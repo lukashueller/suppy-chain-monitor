@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import React from "react";
 import { Divider, Button, Typography, Drawer, Space, Card } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
@@ -68,6 +70,25 @@ const SupplierDrawer = (props) => {
     );
   };
 
+  const returnDataSituation = () => {
+    //if (!("supplier_source" in companyData)) return null;
+    if (companyData.supplier_source.length === 0) return null;
+    const allSources = companyData.supplier_source.map((source, index) => {
+      if (index < companyData.supplier_source.length - 1) {
+        return <Text key={index}>{source}, </Text>;
+      } else {
+        return <Text key={index}>{source}</Text>;
+      }
+    });
+    return (
+      <>
+        <br />
+        <Text strong>Data: </Text>
+        {allSources}
+      </>
+    );
+  };
+
   const returnAboutSection = () => {
     return (
       <>
@@ -81,6 +102,7 @@ const SupplierDrawer = (props) => {
         <>{companyData.contact}</>
         {returnCountries()}
         {returnAllMaterials()}
+        {returnDataSituation()}
       </>
     );
   };
@@ -114,6 +136,48 @@ const SupplierDrawer = (props) => {
       );
     };
 
+    const returnRiskDescriptions = () => {
+      const riskDescriptionContainer = (header, text, risk_classification) => {
+        return (
+          <div style={{ display: "inline-block" }}>
+            <WarningOutlined style={{ color: risk_classification === "high" ? "red" : "orange" }} />
+            {"   "}
+            <Text strong>{header}</Text>: <Text>{text}</Text>
+          </div>
+        );
+      };
+
+      return companyData.found_risks.map((risk) => {
+        let esg_type_dict = { E: "Environmental", S: "Social", G: "Governmental" };
+        const header =
+          esg_type_dict[risk.esg_type] +
+          " (" +
+          risk.type.charAt(0).toUpperCase() +
+          risk.type.slice(1).replaceAll("_", " ") +
+          ")";
+
+        let data_point = "";
+        switch (risk.type) {
+          case "strikes":
+            data_point = "Strikes in 3 months: " + risk.strikes_in_last3_months;
+            break;
+          case "child_labour":
+            data_point = "Child labour hits: " + risk.child_labour_hits;
+            break;
+          case "demographic_change":
+            data_point = "Average age: " + risk.average_age;
+            break;
+          case "geo_risks":
+            data_point = "Unsafe countries: " + risk.unsafe_countries;
+            break;
+        }
+        const text = risk.description + " (" + data_point + ")";
+
+        if (risk.risk === "low") return null;
+        return <>{riskDescriptionContainer(header, text, risk.risk)}</>;
+      });
+    };
+
     return (
       <Space direction="vertical" style={{ width: "100%" }}>
         {highRisks.length > 0
@@ -122,23 +186,43 @@ const SupplierDrawer = (props) => {
         {mediumRisks.length > 0
           ? returnRiskCard("medium", "rgba(255,165,0, 0.7)", mediumRisks.length)
           : null}
+        {returnRiskDescriptions()}
         <div style={{ whiteSpace: "nowrap" }}>{returnSources()}</div>
       </Space>
     );
   };
 
-  const returnGraphSection = () => {
+  const returnAlternativesSection = () => {
+    /*  TODO: Get Full Company Name (aus value-Referenz) */
+    if (companyData.alternatives.length === 0) return <i>currently unmatched</i>;
+    const allAlternatives = companyData.alternatives.map((alternative, index) => {
+      if (index < companyData.alternatives.length - 1) {
+        return <Text key={index}>{alternative}, </Text>;
+      } else {
+        return <Text key={index}>{alternative}</Text>;
+      }
+    });
     return (
       <>
-        {companyData.tier1.map((company) => {
-          return (
-            <>
-              <>{company}</>
-              <br />
-            </>
-          );
-        })}
+        <br />
+        <Text strong>Alternatives: </Text>
+        {allAlternatives}
       </>
+    );
+  };
+
+  const returnGraphSection = () => {
+    /* companyData.tier1.map((company) => {
+      return (
+        <>
+          <>{company}</>
+          <br />
+        </>
+      );
+    }); */
+
+    return (
+      <Button style={{ width: "100%" }}>See simulation of company's supply chain network</Button>
     );
   };
 
@@ -161,6 +245,8 @@ const SupplierDrawer = (props) => {
       {returnAboutSection()}
       <Divider>Risks</Divider>
       {returnRiskSection()}
+      <Divider>Alternatives</Divider>
+      {returnAlternativesSection()}
       <Divider>Supplier Network</Divider>
       {returnGraphSection()}
     </Drawer>

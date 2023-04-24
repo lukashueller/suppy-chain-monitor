@@ -1,13 +1,10 @@
 import { Modal, Upload, message, Button } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-import { useState } from "react";
 
 const { Dragger } = Upload;
 
 const UploadDataModal = (props) => {
   const { open, close, handleSuccessfulUpload } = props;
-
-  let uploadResponse = "";
 
   const draggerProps = {
     name: "file",
