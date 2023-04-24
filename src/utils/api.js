@@ -3,6 +3,7 @@ async function getAllCompanyNames() {
     const response = await fetch("https://tierx.onrender.com/all_company_names");
     return await response.json();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     return error;
   }
@@ -13,6 +14,7 @@ async function getCompleteDatabase() {
     const response = await fetch("https://tierx.onrender.com/");
     return await response.json();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error);
     return error;
   }
@@ -29,7 +31,6 @@ const getDataForCompany = (companyName) => {
   } */
 
   const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
-  console.log(completeDB.companies.find((company) => company.value === companyName).found_risks);
   return completeDB.companies.find((company) => company.value === companyName);
 };
 

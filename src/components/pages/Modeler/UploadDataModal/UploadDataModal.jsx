@@ -1,4 +1,4 @@
-import { Modal, Upload, message } from "antd";
+import { Modal, Upload, message, Button } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
@@ -6,19 +6,27 @@ const { Dragger } = Upload;
 
 const UploadDataModal = (props) => {
   const { open, close, handleSuccessfulUpload } = props;
-  const [confirmLoading, setConfirmLoading] = useState(false);
 
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      close();
-      setConfirmLoading(false);
-    }, 20);
+  let uploadResponse = "";
+
+  const draggerProps = {
+    name: "file",
+    multiple: true,
+    accept: ".xlsx, .xls",
+    method: "POST",
+    action: "https://tierx.onrender.com/purchasing_upload?value=infineon_ag",
+    onChange(info) {
+      const { status } = info.file;
+      if (status === "done") {
+        message.success(`${info.file.name} file uploaded successfully.`);
+        handleSuccessfulUpload(info.file.response);
+      } else if (status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   };
 
-  const handleCancel = () => {
-    close();
-  };
+  const handleOk = () => close();
 
   return (
     <>
@@ -26,16 +34,15 @@ const UploadDataModal = (props) => {
         title="Upload List of Suppliers or Purchase Data"
         open={open}
         onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
+        footer={
+          <div style={{ textAlign: "right" }}>
+            <Button onClick={handleOk} type="primary">
+              OK
+            </Button>
+          </div>
+        }
       >
-        <Dragger
-          accept=".xlsx, .xls"
-          maxCount={1}
-          action="https://tierx.onrender.com/purchasing_upload"
-          method="POST"
-          onSuccess={(response) => handleSuccessfulUpload(response)}
-        >
+        <Dragger {...draggerProps}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
           </p>

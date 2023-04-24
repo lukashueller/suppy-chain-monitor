@@ -4,22 +4,24 @@ import { UploadOutlined } from "@ant-design/icons";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import SupplierBox from "./SupplierBox/SupplierBox.jsx";
+import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
 import { getCompleteDatabase } from "../../../utils/api.js";
-import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 
 const Modeler = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [triggerDropdown, setTriggerDropdown] = useState(false);
+
+  async function fetchCompleteDatabase() {
+    const completeDB = await getCompleteDatabase();
+    sessionStorage.setItem("completeDB", JSON.stringify(completeDB));
+    setTriggerDropdown(!triggerDropdown);
+  }
 
   useEffect(() => {
-    async function fetchAsyncData() {
-      const completeDB = await getCompleteDatabase();
-      initSessionStorage("completeDB", JSON.stringify(completeDB));
-    }
-
-    fetchAsyncData();
+    fetchCompleteDatabase();
     initSessionStorage("currentUserId", "80625d115100a2ee8d8e695b");
   }, []);
 
@@ -31,13 +33,16 @@ const Modeler = () => {
     });
   };
 
-  const handleSuccessfulUpload = (response) => {
+  const handleSuccessfulUpload = async (response) => {
+    await fetchCompleteDatabase();
     const newSuppliers = [];
     response.company_dist_values.forEach((company) => {
-      newSuppliers.push(company);
+      if (!usersTierOneSuppliers.includes(company)) {
+        newSuppliers.push(company);
+      }
     });
 
-    setUsersTierOneSuppliers(newSuppliers);
+    setUsersTierOneSuppliers([...usersTierOneSuppliers, newSuppliers].flat());
   };
 
   const onSupplierDeletion = (supplier) => {
@@ -99,7 +104,7 @@ const Modeler = () => {
             <Select
               style={{ width: "100%" }}
               showSearch
-              placeholder="Enter the name of your supplier"
+              placeholder="Enter the name of your supplier or use the bulk upload on the right"
               options={filteredOptions}
               onChange={(val) => newSupplierEntered(val)}
             />
