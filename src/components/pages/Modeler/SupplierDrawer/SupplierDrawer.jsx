@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 
 import React from "react";
-import { Divider, Button, Typography, Drawer, Space, Card } from "antd";
+import { Divider, Button, Typography, Drawer, Space, Card, Col, Row } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
 import NetworkGraph from "../../NetworkGraph/NetworkGraph";
 
@@ -140,11 +140,16 @@ const SupplierDrawer = (props) => {
     const returnRiskDescriptions = () => {
       const riskDescriptionContainer = (header, text, risk_classification) => {
         return (
-          <div style={{ display: "inline-block" }}>
-            <WarningOutlined style={{ color: risk_classification === "high" ? "red" : "orange" }} />
-            {"   "}
-            <Text strong>{header}</Text>: <Text>{text}</Text>
-          </div>
+          <Row>
+            <Col span={1} style={{ height: "100%", paddingLeft: "0.5rem" }}>
+              <WarningOutlined
+                style={{ color: risk_classification === "high" ? "red" : "orange" }}
+              />
+            </Col>
+            <Col span={23}>
+              <Text strong>{header}</Text>: <Text>{text}</Text>
+            </Col>
+          </Row>
         );
       };
 
