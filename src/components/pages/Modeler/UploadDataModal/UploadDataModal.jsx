@@ -30,7 +30,7 @@ const UploadDataModal = (props) => {
       <Modal
         title="Upload List of Suppliers or Purchase Data"
         open={open}
-        onOk={handleOk}
+        onCancel={handleOk}
         footer={
           <div style={{ textAlign: "right" }}>
             <Button onClick={handleOk} type="primary">
