@@ -34,4 +34,31 @@ const getDataForCompany = (companyName) => {
   return completeDB.companies.find((company) => company.value === companyName);
 };
 
-export { getAllCompanyNames, getCompleteDatabase, getDataForCompany };
+const getLabelForCompany = (companyName) => {
+  try {
+    return getDataForCompany(companyName).label;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return "";
+  }
+};
+
+async function getNetworkForCompany(companyName) {
+  try {
+    const response = await fetch("https://tierx.onrender.com/network?company=" + companyName);
+    return await response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return error;
+  }
+}
+
+export {
+  getAllCompanyNames,
+  getCompleteDatabase,
+  getDataForCompany,
+  getLabelForCompany,
+  getNetworkForCompany,
+};

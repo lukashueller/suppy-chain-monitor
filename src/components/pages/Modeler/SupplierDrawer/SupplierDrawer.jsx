@@ -3,6 +3,7 @@
 import React from "react";
 import { Divider, Button, Typography, Drawer, Space, Card } from "antd";
 import { WarningOutlined } from "@ant-design/icons";
+import NetworkGraph from "../../NetworkGraph/NetworkGraph";
 
 const { Text } = Typography;
 
@@ -212,17 +213,13 @@ const SupplierDrawer = (props) => {
   };
 
   const returnGraphSection = () => {
-    /* companyData.tier1.map((company) => {
-      return (
-        <>
-          <>{company}</>
-          <br />
-        </>
-      );
-    }); */
-
     return (
-      <Button style={{ width: "100%" }}>See simulation of company's supply chain network</Button>
+      <>
+        <NetworkGraph rootNodeValue={companyData.value} />
+        {/* <Button style={{ width: "100%" }}>
+              See simulation of company's supply chain network
+            </Button> */}
+      </>
     );
   };
 
