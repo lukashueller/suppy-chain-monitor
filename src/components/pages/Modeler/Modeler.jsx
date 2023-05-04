@@ -5,6 +5,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
+import SupplierSelector from "./SupplierSelector/SupplierSelector.jsx";
 
 import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
 import { getCompleteDatabase } from "../../../utils/api.js";
@@ -25,14 +26,6 @@ const Modeler = () => {
     initSessionStorage("currentUserId", "80625d115100a2ee8d8e695b");
   }, []);
 
-  const returnSupplierListForDropdown = () => {
-    const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
-    if (completeDB === null) return [];
-    return completeDB.companies.map((el) => {
-      return { label: el.label, value: el.value };
-    });
-  };
-
   const handleSuccessfulUpload = async (response) => {
     await fetchCompleteDatabase();
     const newSuppliers = [];
@@ -49,10 +42,6 @@ const Modeler = () => {
     let newSupplierList = usersTierOneSuppliers;
     newSupplierList = newSupplierList.filter((item) => item !== supplier);
     setUsersTierOneSuppliers(newSupplierList);
-  };
-
-  const newSupplierEntered = (value) => {
-    setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
   };
 
   const renderSupplierBoxes = () => {
@@ -72,13 +61,6 @@ const Modeler = () => {
   const bulkUploadClick = () => {
     setModalOpen(true);
   };
-
-  const filteredOptions = returnSupplierListForDropdown().map((el) => {
-    if (!usersTierOneSuppliers.includes(el.value)) {
-      return { value: el.value, label: el.label, disabled: false };
-    }
-    return { value: el.value, label: el.label, disabled: true };
-  });
 
   return (
     <Space direction="vertical" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
@@ -101,12 +83,9 @@ const Modeler = () => {
 
         <Row gutter={16}>
           <Col xs={24} sm={18} xl={20} xxl={22}>
-            <Select
-              style={{ width: "100%" }}
-              showSearch
-              placeholder="Enter the name of your supplier or use the bulk upload on the right"
-              options={filteredOptions}
-              onChange={(val) => newSupplierEntered(val)}
+            <SupplierSelector
+              usersTierOneSuppliers={usersTierOneSuppliers}
+              setUsersTierOneSuppliers={(val) => setUsersTierOneSuppliers(val)}
             />
           </Col>
 

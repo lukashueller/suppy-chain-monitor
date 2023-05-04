@@ -138,9 +138,9 @@ const SupplierDrawer = (props) => {
     };
 
     const returnRiskDescriptions = () => {
-      const riskDescriptionContainer = (header, text, risk_classification) => {
+      const riskDescriptionContainer = (header, text, risk_classification, index) => {
         return (
-          <Row>
+          <Row key={index}>
             <Col span={1} style={{ height: "100%", paddingLeft: "0.5rem" }}>
               <WarningOutlined
                 style={{ color: risk_classification === "high" ? "red" : "orange" }}
@@ -153,7 +153,7 @@ const SupplierDrawer = (props) => {
         );
       };
 
-      return companyData.found_risks.map((risk) => {
+      return companyData.found_risks.map((risk, index) => {
         let esg_type_dict = { E: "Environmental", S: "Social", G: "Governmental" };
         const header =
           esg_type_dict[risk.esg_type] +
@@ -180,7 +180,7 @@ const SupplierDrawer = (props) => {
         const text = risk.description + " (" + data_point + ")";
 
         if (risk.risk === "low") return null;
-        return <>{riskDescriptionContainer(header, text, risk.risk)}</>;
+        return riskDescriptionContainer(header, text, risk.risk, index);
       });
     };
 

@@ -27,13 +27,13 @@ const Home = () => {
             Welcome to your Supplier Risk Management
           </Title>
           <Title style={{ color: "white" }} level={4}>
-            Achieve strategic advantages by comprehending, evaluating and
-            enhancing the risk and sustainability of your suppliers.
+            Achieve strategic advantages by comprehending, evaluating and enhancing the risk and
+            sustainability of your suppliers.
           </Title>
           <Row>
             <Space direction="horizontal" size="large">
               <Button>Learn more</Button>
-              <Link to="/modeler">
+              <Link to="/network">
                 <Button type="primary">
                   Try it out <RightOutlined />
                 </Button>

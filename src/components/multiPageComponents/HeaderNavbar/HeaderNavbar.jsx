@@ -36,13 +36,13 @@ const HeaderNavbar = (props) => {
     }
   };
 
-  const returnInsightsButton = () => {
+  const returnNetworkButton = () => {
     if (onSCInsights) {
-      return <Button type="primary">Supply Chain Insights</Button>;
+      return <Button type="primary">Supplier Network</Button>;
     } else {
       return (
         <Link to="/insights">
-          <Button>Supply Chain Insights</Button>
+          <Button>Supplier Network</Button>
         </Link>
       );
     }
@@ -73,8 +73,8 @@ const HeaderNavbar = (props) => {
         </Space>
 
         <Space direction="horizontal">
+          {returnNetworkButton()}
           {returnOverviewButton()}
-          {returnInsightsButton()}
         </Space>
 
         <Space direction="horizontal">
