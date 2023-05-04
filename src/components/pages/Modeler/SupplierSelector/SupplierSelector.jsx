@@ -2,7 +2,7 @@ import React from "react";
 import { Select } from "antd";
 
 const SupplierSelector = (props) => {
-  const { usersTierOneSuppliers } = props;
+  const { usersTierOneSuppliers, isInModal } = props;
   const setUsersTierOneSuppliers = (val) => props.setUsersTierOneSuppliers(val);
 
   const returnSupplierListForDropdown = () => {
@@ -21,14 +21,23 @@ const SupplierSelector = (props) => {
   });
 
   const newSupplierEntered = (value) => {
-    setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
+    console.log(isInModal);
+    if (isInModal) {
+      setUsersTierOneSuppliers(value);
+    } else {
+      setUsersTierOneSuppliers([...usersTierOneSuppliers, value]);
+    }
   };
 
   return (
     <Select
       style={{ width: "100%" }}
       showSearch
-      placeholder="Enter the name of your supplier or use the bulk upload on the right"
+      placeholder={
+        isInModal
+          ? "Enter the name of your supplier"
+          : "Enter the name of your supplier or use the bulk upload on the right"
+      }
       options={filteredOptions}
       onChange={(val) => newSupplierEntered(val)}
     />

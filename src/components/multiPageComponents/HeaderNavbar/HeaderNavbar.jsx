@@ -13,15 +13,15 @@ const HeaderNavbar = (props) => {
   const { selectedKey } = props;
   //const ICON_KEY = 0;
   const SUPPLIER_OVERVIEW_PAGE_KEY = 1;
-  const SC_INSIGHTS_PAGE_KEY = 2;
+  const SC_NETWORK_PAGE_KEY = 2;
 
   let onOverview = false;
-  let onSCInsights = false;
+  let onSCNetwork = false;
   if (selectedKey === SUPPLIER_OVERVIEW_PAGE_KEY) {
     onOverview = true;
   }
-  if (selectedKey === SC_INSIGHTS_PAGE_KEY) {
-    onSCInsights = true;
+  if (selectedKey === SC_NETWORK_PAGE_KEY) {
+    onSCNetwork = true;
   }
 
   const returnOverviewButton = () => {
@@ -37,11 +37,11 @@ const HeaderNavbar = (props) => {
   };
 
   const returnNetworkButton = () => {
-    if (onSCInsights) {
+    if (onSCNetwork) {
       return <Button type="primary">Supplier Network</Button>;
     } else {
       return (
-        <Link to="/insights">
+        <Link to="/network">
           <Button>Supplier Network</Button>
         </Link>
       );
