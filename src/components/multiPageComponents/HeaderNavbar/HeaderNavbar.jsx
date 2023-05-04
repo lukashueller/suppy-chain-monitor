@@ -49,10 +49,7 @@ const HeaderNavbar = (props) => {
   };
 
   const handleButtonClick = () => {
-    customNotification(
-      "Warning",
-      "The functionality of this page is currently not implemented"
-    );
+    customNotification("Warning", "The functionality of this page is currently not implemented");
   };
 
   const returnWideNavbar = () => {
@@ -68,17 +65,9 @@ const HeaderNavbar = (props) => {
       >
         <Space direction="horizontal">
           <Link to="/">
-            <Button
-              type="text"
-              icon={<HomeOutlined />}
-              style={{ color: "white" }}
-            />
+            <Button type="text" icon={<HomeOutlined />} style={{ color: "white" }} />
           </Link>
-          <Button
-            type="text"
-            style={{ color: "white" }}
-            onClick={() => handleButtonClick()}
-          >
+          <Button type="text" style={{ color: "white" }} onClick={() => handleButtonClick()}>
             About us!
           </Button>
         </Space>
@@ -89,20 +78,14 @@ const HeaderNavbar = (props) => {
         </Space>
 
         <Space direction="horizontal">
-          <Button
-            type="text"
-            style={{ color: "white" }}
-            onClick={() => handleButtonClick()}
-          >
+          <Button type="text" style={{ color: "white" }} onClick={() => handleButtonClick()}>
             Sign Up
           </Button>
-          <Button
-            type="text"
-            style={{ color: "white" }}
-            onClick={() => handleButtonClick()}
-          >
-            Log In
-          </Button>
+          <Link to="/login">
+            <Button type="text" style={{ color: "white" }}>
+              Log In
+            </Button>
+          </Link>
         </Space>
       </Row>
     );

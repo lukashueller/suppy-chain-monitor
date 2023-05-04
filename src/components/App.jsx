@@ -6,6 +6,7 @@ import Insights from "./pages/Insights/Insights";
 import Error from "./pages/Error/Error";
 
 import "./App.css";
+import Login from "./pages/Login/Login";
 
 const App = () => (
   <BrowserRouter basename="/suppy-chain-monitor">
@@ -13,6 +14,7 @@ const App = () => (
       <Route exact path="/" element={<Home />} />
       <Route path="/modeler" element={<Modeler />} />
       <Route path="/insights" element={<Insights />} />
+      <Route path="/login" element={<Login />} />
       <Route path="*" element={<Error />} />
       {/* <Route path="/somethingwithId/:id" element={somethingwithId} /> */}
     </Routes>
