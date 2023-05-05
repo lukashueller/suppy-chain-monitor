@@ -31,42 +31,24 @@ const NetworkGraph = (props) => {
 
   useEffect(() => {
     handleFetch();
-  }, []);
+  }, [rootNodeValue]);
 
   useEffect(() => {
     if (treeContainerRef != null) {
       const dimensions = treeContainerRef.getBoundingClientRect();
-      setDimensions({
-        x: dimensions.width / 10,
-        y: dimensions.width / 4,
-      });
+      setDimensions({ x: dimensions.width / 10, y: dimensions.width / 4 });
     }
   }, [treeContainerRef]);
 
   return (
-    <div
-      /* style={{
-        width: "100%",
-        height: "100vh",
-      }} */
-      style={{
-        width: "100vw",
-        height: "60vh",
-      }}
-      ref={(tc) => setTreeContainerRef(tc)}
-    >
+    <div style={{ width: "100vw", height: "90vh" }} ref={(tc) => setTreeContainerRef(tc)}>
       <Tree
         data={graphData}
         translate={dimensions}
         orientation={"horizontal"}
         nodeSvgShape={{
           shape: "rect",
-          shapeProps: {
-            width: 40,
-            height: 20,
-            x: -10,
-            y: -10,
-          },
+          shapeProps: { width: 40, height: 20, x: -10, y: -10 },
         }}
         circleRadius={30}
       />

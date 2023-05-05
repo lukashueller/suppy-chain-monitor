@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { Row, Typography } from "antd";
+import React, { useState, useEffect } from "react";
+import { Row } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import EnterFirstSupplierModal from "./EnterFirstSupplierModal/EnterFirstSupplierModal.jsx";
-
-const { Title } = Typography;
+import NetworkGraph from "../NetworkGraph/NetworkGraph.jsx";
 
 const SupplierNetwork = () => {
   const [modalOpen, setModalOpen] = useState(true);
+  const [singleSupplier, setSingleSupplier] = useState("");
 
   return (
     <Row justify="center" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
@@ -15,10 +15,10 @@ const SupplierNetwork = () => {
         open={modalOpen}
         mask={true}
         close={() => setModalOpen(false)}
-        /* handleSuccessfulUpload={(response) => handleSuccessfulUpload(response)} */
+        setSingleSupplier={(singleSupplier) => setSingleSupplier(singleSupplier)}
       />
       <HeaderNavbar selectedKey={2} />
-      <Title>This page is currently under construction!</Title>
+      <NetworkGraph rootNodeValue={singleSupplier} />
     </Row>
   );
 };

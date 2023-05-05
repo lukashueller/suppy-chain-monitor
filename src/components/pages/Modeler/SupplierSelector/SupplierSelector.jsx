@@ -21,7 +21,6 @@ const SupplierSelector = (props) => {
   });
 
   const newSupplierEntered = (value) => {
-    console.log(isInModal);
     if (isInModal) {
       setUsersTierOneSuppliers(value);
     } else {
