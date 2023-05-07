@@ -78,14 +78,16 @@ const HeaderNavbar = (props) => {
         </Space>
 
         <Space direction="horizontal">
-          <Button type="text" style={{ color: "white" }} onClick={() => handleButtonClick()}>
-            Sign Up
-          </Button>
-          <Link to="/login">
+          <Link to="/signup">
             <Button type="text" style={{ color: "white" }}>
-              Log In
+              Sign Up
             </Button>
           </Link>
+          {/* <Link to="/login"> */}
+          <Button type="text" style={{ color: "white" }} onClick={() => handleButtonClick()}>
+            Log In
+          </Button>
+          {/* </Link> */}
         </Space>
       </Row>
     );
