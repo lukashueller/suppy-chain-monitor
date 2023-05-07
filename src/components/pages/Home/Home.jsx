@@ -1,13 +1,28 @@
-import "./Home.css";
-
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Space, Button, Typography, Row, Col } from "antd";
 import { RightOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+
+import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
+import { getCompleteDatabase } from "../../../utils/api.js";
+
+import "./Home.css";
 
 const { Title } = Typography;
 
 const Home = () => {
+  initSessionStorage("userObject", JSON.stringify(null));
+  initSessionStorage("completeDB", JSON.stringify(null));
+
+  async function fetchCompleteDatabase() {
+    const completeDB = await getCompleteDatabase();
+    sessionStorage.setItem("completeDB", JSON.stringify(completeDB));
+  }
+
+  useEffect(() => {
+    fetchCompleteDatabase();
+  }, []);
+
   return (
     <div className="background">
       <Col

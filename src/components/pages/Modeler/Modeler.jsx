@@ -7,27 +7,13 @@ import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 import SupplierSelector from "./SupplierSelector/SupplierSelector.jsx";
 
-import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
 import { getCompleteDatabase } from "../../../utils/api.js";
 
 const Modeler = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [triggerDropdown, setTriggerDropdown] = useState(false);
-
-  async function fetchCompleteDatabase() {
-    const completeDB = await getCompleteDatabase();
-    sessionStorage.setItem("completeDB", JSON.stringify(completeDB));
-    setTriggerDropdown(!triggerDropdown);
-  }
-
-  useEffect(() => {
-    fetchCompleteDatabase();
-    initSessionStorage("currentUserId", "80625d115100a2ee8d8e695b");
-  }, []);
 
   const handleSuccessfulUpload = async (response) => {
-    await fetchCompleteDatabase();
     const newSuppliers = [];
     response.company_dist_values.forEach((company) => {
       if (!usersTierOneSuppliers.includes(company)) {
