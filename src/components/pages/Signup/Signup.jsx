@@ -1,30 +1,20 @@
 import React from "react";
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar";
-import { Row, Col, Typography, Space, Button, Form, Input } from "antd";
+import { Col, Typography, Button, Form, Input } from "antd";
+import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
 
 const { Title, Text } = Typography;
 
 const Signup = () => {
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    sessionStorage.setItem("userObject", JSON.stringify(values));
   };
 
   return (
     <>
       <HeaderNavbar />
-      <div className="background">
-        <Col
-          sm={0}
-          md={1}
-          lg={1}
-          xl={1}
-          xxl={2}
-          /* style={{
-          backgroundColor: "white",
-          minHeight: "50vh",
-          marginTop: "30vh",
-        }} */
-        />
+      <div className="navbar_background">
+        <Col sm={0} md={1} lg={1} xl={1} xxl={2} />
         <Col
           sm={24}
           md={12}
@@ -36,14 +26,14 @@ const Signup = () => {
             marginTop: "0vh",
           }}
         >
-          <Col style={{ padding: "2rem" }}>
+          <Col style={{ padding: "2rem 2rem 0rem" }}>
             <Title style={{ color: "white", marginTop: "0px" }}>TierX Signup</Title>
 
             <Form name="basic" onFinish={onFinish}>
-              <Text style={{ color: "white" }}>Username</Text>
+              <Text style={{ color: "white" }}>Your Name</Text>
               <Form.Item
-                name="username"
-                rules={[{ required: "true", message: "Please input your username!" }]}
+                name="name_user"
+                rules={[{ required: "true", message: "Please input your name!" }]}
               >
                 <Input />
               </Form.Item>

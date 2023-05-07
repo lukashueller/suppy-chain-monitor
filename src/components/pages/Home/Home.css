@@ -6,3 +6,12 @@
   display: flex;
   align-items: center;
 }
+
+.navbar_background {
+  background-image: url("/public/logo/home-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+}
