@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { HomeOutlined } from "@ant-design/icons";
-import { Button, Row, Space, Grid } from "antd";
+import { Button, Row, Space, Grid, Typography } from "antd";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import customNotification from "../../../utils/notificationUtils";
 
 const { useBreakpoint } = Grid;
+const { Text } = Typography;
 
 const HeaderNavbar = (props) => {
   const screens = useBreakpoint();
-
   const { selectedKey } = props;
+  let navigate = useNavigate();
+
   //const ICON_KEY = 0;
   const SUPPLIER_OVERVIEW_PAGE_KEY = 1;
   const SC_NETWORK_PAGE_KEY = 2;
@@ -23,6 +26,17 @@ const HeaderNavbar = (props) => {
   if (selectedKey === SC_NETWORK_PAGE_KEY) {
     onSCNetwork = true;
   }
+
+  const userObject = JSON.parse(sessionStorage.getItem("userObject"));
+  let companyName = null;
+  if (userObject !== null) {
+    companyName = userObject.company_name;
+  }
+
+  const handleLogoutClick = () => {
+    sessionStorage.setItem("userObject", JSON.stringify(null));
+    navigate("/");
+  };
 
   const returnOverviewButton = () => {
     if (onOverview) {
@@ -44,6 +58,32 @@ const HeaderNavbar = (props) => {
         <Link to="/network">
           <Button>Supplier Network</Button>
         </Link>
+      );
+    }
+  };
+
+  const returnSignupLoginSection = () => {
+    if (companyName === null) {
+      return (
+        <>
+          <Link to="/signup">
+            <Button type="text" style={{ color: "white" }}>
+              Sign Up
+            </Button>
+          </Link>
+          <Button type="text" style={{ color: "white" }} onClick={() => handleButtonClick()}>
+            Log In
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Text style={{ color: "white" }}>{companyName}</Text>
+          <Button type="text" style={{ color: "white" }} onClick={() => handleLogoutClick()}>
+            Log Out
+          </Button>
+        </>
       );
     }
   };
@@ -77,18 +117,7 @@ const HeaderNavbar = (props) => {
           {returnOverviewButton()}
         </Space>
 
-        <Space direction="horizontal">
-          <Link to="/signup">
-            <Button type="text" style={{ color: "white" }}>
-              Sign Up
-            </Button>
-          </Link>
-          {/* <Link to="/login"> */}
-          <Button type="text" style={{ color: "white" }} onClick={() => handleButtonClick()}>
-            Log In
-          </Button>
-          {/* </Link> */}
-        </Space>
+        <Space direction="horizontal">{returnSignupLoginSection()}</Space>
       </Row>
     );
   };
