@@ -4,7 +4,9 @@
   "homepage": "https://lukashueller.github.io/suppy-chain-monitor/",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.4.4",
+    "@antv/graphin": "^2.7.16",
+    "@antv/graphin-components": "^2.4.0",
+    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,7 +16,8 @@
     "react-d3-tree": "^3.5.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "predeploy": "npm run build",
@@ -22,7 +25,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
   },
   "eslintConfig": {
     "extends": [
