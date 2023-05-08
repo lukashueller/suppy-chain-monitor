@@ -1,12 +1,10 @@
 /* eslint-disable max-len */
 
 import React, { useEffect, useState } from "react";
-import Graphin, { Behaviors } from "@antv/graphin";
+import Graphin from "@antv/graphin";
 import { v4 as uuidv4 } from "uuid";
 import { getLabelForCompany, getNetworkForCompany } from "../../../utils/api";
-import { graphine_layout, nodeBasicMethod, cardNode } from "./NetworkGraphHelper";
-
-const { TreeCollapse } = Behaviors;
+import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";
 
 function NetworkGraph(props) {
   const { rootNodeValue } = props;
@@ -49,37 +47,37 @@ function NetworkGraph(props) {
     handleFetch();
   }, [rootNodeValue]);
 
-  Graphin.registerNode("card-node", cardNode);
+  Graphin.registerNode("lbbw-node", lbbwNodeConfig);
 
-  Graphin.registerBehavior("behaviorName", {
+  Graphin.registerBehavior("custom-node-click-behavior", {
     getEvents() {
       return {
         "node:click": "onNodeClick",
       };
     },
     onNodeClick(evt) {
-      console.log("Node clicked"); // , evt);
+      // console.log("Node clicked"); // , evt);
     },
   });
 
   return (
     <Graphin
       data={graphData}
-      layout={graphine_layout}
+      layout={graphine_graph_layout}
       animate
       modes={{
         default: [
-          "behaviorName",
+          "custom-node-click-behavior",
           "drag-canvas",
           "zoom-canvas",
           {
             type: "collapse-expand",
-            onchange: nodeBasicMethod.onToggleCollapse,
+            onchange: nodeOnToggleCollapse,
           },
         ],
       }}
       fitView
-      defaultNode={{ type: "card-node" }}
+      defaultNode={{ type: "lbbw-node" }}
       defaultEdge={{ type: "cubic-horizontal" }}
     />
   );
