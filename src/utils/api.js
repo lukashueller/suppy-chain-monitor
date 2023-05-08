@@ -39,7 +39,7 @@ const getLabelForCompany = (companyName) => {
     return getDataForCompany(companyName).label;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    console.warn(error);
     return "";
   }
 };
@@ -50,7 +50,7 @@ async function getNetworkForCompany(companyName) {
     return await response.json();
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(error);
+    console.warn(error);
     return error;
   }
 }
