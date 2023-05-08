@@ -1,13 +1,16 @@
 import React from "react";
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar";
 import { Col, Typography, Button, Form, Input } from "antd";
-import { initSessionStorage } from "../../../utils/sessionStorageUtils.js";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 const Signup = () => {
+  let navigate = useNavigate();
+
   const onFinish = (values) => {
     sessionStorage.setItem("userObject", JSON.stringify(values));
+    navigate(-1);
   };
 
   return (
