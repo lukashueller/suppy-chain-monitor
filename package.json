@@ -4,6 +4,7 @@
   "homepage": "https://lukashueller.github.io/suppy-chain-monitor/",
   "private": true,
   "dependencies": {
+    "@ant-design/colors": "^7.0.0",
     "@antv/graphin": "^2.7.16",
     "@antv/graphin-components": "^2.4.0",
     "@craco/craco": "^7.1.0",

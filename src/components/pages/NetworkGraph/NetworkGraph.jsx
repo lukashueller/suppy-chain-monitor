@@ -3,43 +3,35 @@
 import React, { useEffect, useState } from "react";
 import Graphin from "@antv/graphin";
 import { v4 as uuidv4 } from "uuid";
-import { getLabelForCompany, getNetworkForCompany } from "../../../utils/api";
+import { getDataForCompany, getLabelForCompany, getNetworkForCompany } from "../../../utils/api";
 import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";
 
 function NetworkGraph(props) {
   const { rootNodeValue } = props;
-  const [graphData, setGraphData] = useState({ id: "0", name: "Loading...", children: [] });
+  const [graphData, setGraphData] = useState(null);
 
   const handleFetch = async () => {
     const fetchedNetwork = await getNetworkForCompany(rootNodeValue);
     const { network } = fetchedNetwork;
 
-    setGraphData(generateNetworkHierarchy(network));
+    setGraphData(await generateNetworkHierarchy(network));
   };
 
-  const generateNetworkHierarchy = (network, depth = 0) => {
+  const generateNetworkHierarchy = async (network, depth = 0) => {
     const uuid = uuidv4().toString();
-    if ("tier1" in network) {
-      return {
-        id: uuid,
-        collapsed: depth > 2,
-        name: getLabelForCompany(network.value),
-        company_no: `HRB391${uuid.substring(0, 4)}`,
-        nodeWarning: getLabelForCompany(network.value).startsWith("l"),
-        dataType: depth === 0 ? "root" : "node", // root node is the first node
-        keyInfo: "this is a card node info",
-        children: network.tier1.map((supplier) => generateNetworkHierarchy(supplier, depth + 1)),
-      };
-    }
+    const company_data = await getDataForCompany(network.value);
+
+    const children = await Promise.all((network.tier1 ?? []).map(async (supplier) => generateNetworkHierarchy(supplier, depth + 1)));
+
     return {
       id: uuid,
-      collapsed: false,
+      collapsed: depth > 2,
       name: getLabelForCompany(network.value),
       company_no: `HRB391${uuid.substring(0, 4)}`,
-      nodeWarning: getLabelForCompany(network.value).startsWith("l"),
-      dataType: depth === 0 ? "root" : "node", // root node is the first node
-      keyInfo: "this is a card node info",
-      children: [],
+      esgWarningLevel: company_data?.estimated_risk,
+      dataType: depth === 0 ? "root" : "node",
+      keyInfo: company_data?.contact,
+      children: children,
     };
   };
 
@@ -60,6 +52,9 @@ function NetworkGraph(props) {
     },
   });
 
+  if (graphData === null) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <Graphin
       data={graphData}
