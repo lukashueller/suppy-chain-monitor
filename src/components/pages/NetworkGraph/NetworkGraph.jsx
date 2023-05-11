@@ -11,9 +11,9 @@ function NetworkGraph(props) {
   const [graphData, setGraphData] = useState(null);
 
   const handleFetch = async () => {
+    if (rootNodeValue === null) return;
     const fetchedNetwork = await getNetworkForCompany(rootNodeValue);
     const { network } = fetchedNetwork;
-
     setGraphData(await generateNetworkHierarchy(network));
   };
 
@@ -21,7 +21,9 @@ function NetworkGraph(props) {
     const uuid = uuidv4().toString();
     const company_data = await getDataForCompany(network.value);
 
-    const children = await Promise.all((network.tier1 ?? []).map(async (supplier) => generateNetworkHierarchy(supplier, depth + 1)));
+    const children = await Promise.all(
+      (network.tier1 ?? []).map(async (supplier) => generateNetworkHierarchy(supplier, depth + 1))
+    );
 
     return {
       id: uuid,
@@ -48,10 +50,11 @@ function NetworkGraph(props) {
       };
     },
     onNodeClick(evt) {
-      // console.log("Node clicked"); // , evt);
+      console.log("Node clicked"); // , evt);
     },
   });
 
+  if (rootNodeValue === null) return null;
   if (graphData === null) {
     return <h1>Loading...</h1>;
   }

@@ -7,7 +7,7 @@ import NetworkGraph from "../NetworkGraph/NetworkGraph.jsx";
 
 const SupplierNetwork = () => {
   const [modalOpen, setModalOpen] = useState(true);
-  const [singleSupplier, setSingleSupplier] = useState("");
+  const [singleSupplier, setSingleSupplier] = useState(null);
 
   return (
     <Row justify="center" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>

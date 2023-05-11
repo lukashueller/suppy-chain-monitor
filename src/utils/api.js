@@ -65,6 +65,7 @@ const getLabelForCompany = (companyName) => {
 
 async function getNetworkForCompany(companyName) {
   try {
+    //TODO:the api always returns something, even if company name is null
     const response = await fetch("https://tierx.onrender.com/network?company=" + companyName);
     return await response.json();
   } catch (error) {
