@@ -1,3 +1,6 @@
+import { gold, gray } from "@ant-design/colors";
+
+
 export const graphine_graph_layout = {
   type: "compactBox",
   direction: "LR",
@@ -171,20 +174,61 @@ export const EXPAND_ICON = function EXPAND_ICON(x, y, r) {
 };
 
 export const getNodeConfig = (node) => {
-  let config = {
-    basicColor: "#5B8FF9",
-    fontColor: "#5B8FF9",
-    borderColor: "#5B8FF9",
-    bgColor: "#C6E5FF",
-  };
-
-  if (node.nodeWarning) {
+  let config = null;
+  switch (node.esgWarningLevel) {
+  // red
+  case "high":
     config = {
       basicColor: "#F5222D",
       fontColor: "#FFF",
       borderColor: "#F5222D",
       bgColor: "#E66A6C",
+      idFillColor: null,
+      idStrokeColor: "rgba(255,255,255,0.65)",
+      idTextColor: "rgba(255,255,255,0.85)",
+      warningIcon: "⚠️",
     };
+    break;
+    // yellow
+  case "medium":
+    config = {
+      basicColor: gold[5],
+      fontColor: "#FFF",
+      borderColor: gold[5],
+      bgColor: gold[4],
+      idFillColor: null,
+      idStrokeColor: "rgba(255,255,255,0.65)",
+      idTextColor: "rgba(255,255,255,0.85)",
+      warningIcon: "",
+    };
+    break;
+    // blue
+  case "low":
+    config = {
+      basicColor: "#5B8FF9",
+      fontColor: "#5B8FF9",
+      borderColor: "#5B8FF9",
+      bgColor: "#C6E5FF",
+      idFillColor: "#FFF",
+      idStrokeColor: null,
+      idTextColor: "rgba(0,0,0,0.65)",
+      warningIcon: "",
+    };
+    break;
+    
+    // unmatched etc.:
+  default:
+    config = {
+      basicColor: gray[5],
+      fontColor: "#fff",
+      borderColor: gray[5],
+      bgColor: gray[1],
+      idFillColor: "#FFF",
+      idStrokeColor: null,
+      idTextColor: "rgba(0,0,0,0.65)",
+      warningIcon: "",
+    };
+    break;
   }
 
   return config;
@@ -200,15 +244,18 @@ export const lbbwNodeConfig = {
   draw: (cfg, group) => {
     const config = getNodeConfig(cfg);
     const isRoot = cfg.dataType === "root";
-    const nodeWarning = cfg.nodeWarning;
-    /* the biggest rect */
     const container = nodeBasicMethod.createNodeBox(group, config, 243, 64, isRoot);
+    
+    const overNodeText = "";
+    const companyNo=cfg.company_no;
+    const name = cfg.name;
+    const description = cfg.keyInfo;
 
     if (cfg.dataType !== "root") {
-      /* the type text */
+      /* the text above the node*/
       group.addShape("text", {
         attrs: {
-          text: cfg.dataType,
+          text: overNodeText,
           x: 3,
           y: -10,
           fontSize: 12,
@@ -220,13 +267,13 @@ export const lbbwNodeConfig = {
       });
     }
 
-    if (cfg.company_no) {
+    if (companyNo) {
       /* company_no start */
       /* company_noBox */
       const company_noRect = group.addShape("rect", {
         attrs: {
-          fill: nodeWarning ? null : "#FFF",
-          stroke: nodeWarning ? "rgba(255,255,255,0.65)" : null,
+          fill: config.idFillColor,
+          stroke: config.idStrokeColor,
           radius: 2,
           cursor: "pointer",
         },
@@ -236,13 +283,13 @@ export const lbbwNodeConfig = {
       /* company_no */
       const company_noText = group.addShape("text", {
         attrs: {
-          text: cfg.company_no,
+          text: companyNo,
           x: 0,
           y: 19,
           fontSize: 12,
           textAlign: "left",
           textBaseline: "middle",
-          fill: nodeWarning ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.65)",
+          fill: config.idTextColor,
           cursor: "pointer",
         },
         name: "company_no-text-shape",
@@ -334,7 +381,7 @@ export const lbbwNodeConfig = {
     /* name */
     group.addShape("text", {
       attrs: {
-        text: cfg.name,
+        text: name,
         x: 19,
         y: 19,
         fontSize: 14,
@@ -350,7 +397,7 @@ export const lbbwNodeConfig = {
     /* the description text */
     group.addShape("text", {
       attrs: {
-        text: cfg.keyInfo,
+        text: description,
         x: 19,
         y: 45,
         fontSize: 14,
@@ -361,19 +408,17 @@ export const lbbwNodeConfig = {
       },
       name: "bottom-text-shape",
     });
-
-    if (nodeWarning) {
-      group.addShape("text", {
-        attrs: {
-          x: 191,
-          y: 62,
-          text: "⚠️",
-          fill: "#000",
-          fontSize: 18,
-        },
-        name: "error-text-shape",
-      });
-    }
+    
+    group.addShape("text", {
+      attrs: {
+        x: 191,
+        y: 62,
+        text: config.warningIcon,
+        fill: "#000",
+        fontSize: 18,
+      },
+      name: "error-text-shape",
+    });
 
     const hasChildren = cfg.children && cfg.children.length > 0;
     if (hasChildren) {
