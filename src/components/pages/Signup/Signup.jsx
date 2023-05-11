@@ -2,6 +2,7 @@ import React from "react";
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar";
 import { Col, Typography, Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
+import { upsertUserToDatabase } from "../../../utils/api";
 
 const { Title, Text } = Typography;
 
@@ -10,6 +11,7 @@ const Signup = () => {
 
   const onFinish = (values) => {
     sessionStorage.setItem("userObject", JSON.stringify(values));
+    upsertUserToDatabase(values);
     navigate(-1);
   };
 

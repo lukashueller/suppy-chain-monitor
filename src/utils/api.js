@@ -20,6 +20,25 @@ async function getCompleteDatabase() {
   }
 }
 
+const upsertUserToDatabase = (data) => {
+  fetch("https://tierx.onrender.com/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((responseData) => {
+      // eslint-disable-next-line no-console
+      console.log(responseData);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
+};
+
 const getDataForCompany = (companyName) => {
   /* try {
     const url = "https://tierx.onrender.com/company_data?value=" + companyName;
@@ -61,4 +80,5 @@ export {
   getDataForCompany,
   getLabelForCompany,
   getNetworkForCompany,
+  upsertUserToDatabase,
 };
