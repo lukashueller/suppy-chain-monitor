@@ -1,6 +1,5 @@
 import { gold, gray } from "@ant-design/colors";
-
-
+/* eslint-disable */
 export const graphine_graph_layout = {
   type: "compactBox",
   direction: "LR",
@@ -119,6 +118,7 @@ export const nodeBasicMethod = {
       icon.on("mouseleave", () => {
         bg.attr("opacity", 0);
       });
+      icon.on("click", () => console.log(""));
     }
   },
   setState: (name, value, item) => {
@@ -176,59 +176,59 @@ export const EXPAND_ICON = function EXPAND_ICON(x, y, r) {
 export const getNodeConfig = (node) => {
   let config = null;
   switch (node.esgWarningLevel) {
-  // red
-  case "high":
-    config = {
-      basicColor: "#F5222D",
-      fontColor: "#FFF",
-      borderColor: "#F5222D",
-      bgColor: "#E66A6C",
-      idFillColor: null,
-      idStrokeColor: "rgba(255,255,255,0.65)",
-      idTextColor: "rgba(255,255,255,0.85)",
-      warningIcon: "⚠️",
-    };
-    break;
+    // red
+    case "high":
+      config = {
+        basicColor: "#F5222D",
+        fontColor: "#FFF",
+        borderColor: "#F5222D",
+        bgColor: "#E66A6C",
+        idFillColor: null,
+        idStrokeColor: "rgba(255,255,255,0.65)",
+        idTextColor: "rgba(255,255,255,0.85)",
+        warningIcon: "⚠️",
+      };
+      break;
     // yellow
-  case "medium":
-    config = {
-      basicColor: gold[5],
-      fontColor: "#FFF",
-      borderColor: gold[5],
-      bgColor: gold[4],
-      idFillColor: null,
-      idStrokeColor: "rgba(255,255,255,0.65)",
-      idTextColor: "rgba(255,255,255,0.85)",
-      warningIcon: "",
-    };
-    break;
+    case "medium":
+      config = {
+        basicColor: gold[5],
+        fontColor: "#FFF",
+        borderColor: gold[5],
+        bgColor: gold[4],
+        idFillColor: null,
+        idStrokeColor: "rgba(255,255,255,0.65)",
+        idTextColor: "rgba(255,255,255,0.85)",
+        warningIcon: "",
+      };
+      break;
     // blue
-  case "low":
-    config = {
-      basicColor: "#5B8FF9",
-      fontColor: "#5B8FF9",
-      borderColor: "#5B8FF9",
-      bgColor: "#C6E5FF",
-      idFillColor: "#FFF",
-      idStrokeColor: null,
-      idTextColor: "rgba(0,0,0,0.65)",
-      warningIcon: "",
-    };
-    break;
-    
+    case "low":
+      config = {
+        basicColor: "#5B8FF9",
+        fontColor: "#5B8FF9",
+        borderColor: "#5B8FF9",
+        bgColor: "#C6E5FF",
+        idFillColor: "#FFF",
+        idStrokeColor: null,
+        idTextColor: "rgba(0,0,0,0.65)",
+        warningIcon: "",
+      };
+      break;
+
     // unmatched etc.:
-  default:
-    config = {
-      basicColor: gray[5],
-      fontColor: "#fff",
-      borderColor: gray[5],
-      bgColor: gray[1],
-      idFillColor: "#FFF",
-      idStrokeColor: null,
-      idTextColor: "rgba(0,0,0,0.65)",
-      warningIcon: "",
-    };
-    break;
+    default:
+      config = {
+        basicColor: gray[5],
+        fontColor: "#fff",
+        borderColor: gray[5],
+        bgColor: gray[1],
+        idFillColor: "#FFF",
+        idStrokeColor: null,
+        idTextColor: "rgba(0,0,0,0.65)",
+        warningIcon: "",
+      };
+      break;
   }
 
   return config;
@@ -245,9 +245,9 @@ export const lbbwNodeConfig = {
     const config = getNodeConfig(cfg);
     const isRoot = cfg.dataType === "root";
     const container = nodeBasicMethod.createNodeBox(group, config, 243, 64, isRoot);
-    
+
     const overNodeText = "";
-    const companyNo=cfg.company_no;
+    const companyNo = cfg.company_no;
     const name = cfg.name;
     const description = cfg.keyInfo;
 
@@ -408,7 +408,7 @@ export const lbbwNodeConfig = {
       },
       name: "bottom-text-shape",
     });
-    
+
     group.addShape("text", {
       attrs: {
         x: 191,

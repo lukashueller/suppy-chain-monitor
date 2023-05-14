@@ -7,7 +7,7 @@ import { getDataForCompany, getLabelForCompany, getNetworkForCompany } from "../
 import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";
 
 function NetworkGraph(props) {
-  const { rootNodeValue } = props;
+  const { rootNodeValue, handleNodeClick } = props;
   const [graphData, setGraphData] = useState(null);
 
   const handleFetch = async () => {
@@ -50,7 +50,7 @@ function NetworkGraph(props) {
       };
     },
     onNodeClick(evt) {
-      console.log("Node clicked"); // , evt);
+      handleNodeClick(evt);
     },
   });
 
