@@ -25,32 +25,30 @@ const EnterFirstSupplierModal = (props) => {
   };
 
   return (
-    <>
-      <Modal
-        title="Get Started by Selecting Your First Supplier"
-        open={open}
-        closable={false}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        cancelButtonProps={{ style: { display: "none" } }}
-      >
-        <Space direction="vertical" style={{ width: "100%" }}>
-          <SupplierSelector
-            isInModal={true}
-            usersTierOneSuppliers={usersTierOneSuppliers}
-            setUsersTierOneSuppliers={(val) => {
-              setDisplayAlert(false);
-              setUsersTierOneSuppliers(val);
-            }}
-          />
-          {displayAlert ? (
-            <Text type="danger" style={{ marginLeft: "0.2rem" }}>
-              You have to select a supplier!
-            </Text>
-          ) : null}
-        </Space>
-      </Modal>
-    </>
+    <Modal
+      title="Get Started by Selecting Your First Supplier"
+      open={open}
+      closable={false}
+      onOk={handleOk}
+      confirmLoading={confirmLoading}
+      cancelButtonProps={{ style: { display: "none" } }}
+    >
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <SupplierSelector
+          isInModal={true}
+          usersTierOneSuppliers={usersTierOneSuppliers}
+          setUsersTierOneSuppliers={(val) => {
+            setDisplayAlert(false);
+            setUsersTierOneSuppliers(val);
+          }}
+        />
+        {displayAlert ? (
+          <Text type="danger" style={{ marginLeft: "0.2rem" }}>
+            You have to select a supplier!
+          </Text>
+        ) : null}
+      </Space>
+    </Modal>
   );
 };
 export default EnterFirstSupplierModal;
