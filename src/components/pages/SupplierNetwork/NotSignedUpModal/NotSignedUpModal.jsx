@@ -22,9 +22,7 @@ const NotSignedUpModal = (props) => {
       open={open}
       onCancel={handleOk}
       title={
-        <div level={4} style={{ color: "white" }}>
-          Glad to know you're intrigued!
-        </div>
+        <div style={{ color: "white", fontSize: "large" }}>Glad to know you're intrigued!</div>
       }
       closeIcon={<CloseOutlined style={{ color: "white" }} />}
       footer={
