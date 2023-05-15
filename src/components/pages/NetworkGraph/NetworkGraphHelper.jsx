@@ -186,7 +186,7 @@ export const getNodeConfig = (node) => {
         idFillColor: null,
         idStrokeColor: "rgba(255,255,255,0.65)",
         idTextColor: "rgba(255,255,255,0.85)",
-        warningIcon: "⚠️",
+        /* warningIcon: "⚠️", */
       };
       break;
     // yellow
