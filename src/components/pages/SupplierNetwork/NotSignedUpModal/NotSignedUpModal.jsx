@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 // import styles from "./NotSignedUpModal.module.css";
 
-const { Text } = Typography;
-
 const NotSignedUpModal = (props) => {
   const { open, close } = props;
 

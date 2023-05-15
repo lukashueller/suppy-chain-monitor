@@ -50,6 +50,8 @@ function NetworkGraph(props) {
       };
     },
     onNodeClick(evt) {
+      /* console.log(evt);
+      console.log(evt.target); */
       handleNodeClick(evt);
     },
   });
