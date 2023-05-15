@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Space, Select, Button } from "antd";
+import { Row, Col, Space, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
@@ -7,11 +7,15 @@ import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 import SupplierSelector from "./SupplierSelector/SupplierSelector.jsx";
 
-import { getCompleteDatabase } from "../../../utils/api.js";
-
 const Modeler = () => {
-  const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
+  const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState(
+    JSON.parse(sessionStorage.getItem("tierOneSuppliers"))
+  );
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    sessionStorage.setItem("tierOneSuppliers", JSON.stringify(usersTierOneSuppliers));
+  }, [usersTierOneSuppliers]);
 
   const handleSuccessfulUpload = async (response) => {
     const newSuppliers = [];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Typography, Space } from "antd";
 
 import SupplierSelector from "../../Modeler/SupplierSelector/SupplierSelector";
@@ -6,7 +6,7 @@ import SupplierSelector from "../../Modeler/SupplierSelector/SupplierSelector";
 const { Text } = Typography;
 
 const EnterFirstSupplierModal = (props) => {
-  const { open, close, setSingleSupplier } = props;
+  const { open, close, setTierOneSuppliers } = props;
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [displayAlert, setDisplayAlert] = useState(false);
@@ -15,7 +15,7 @@ const EnterFirstSupplierModal = (props) => {
     if (usersTierOneSuppliers.length === 0) {
       setDisplayAlert(true);
     } else {
-      setSingleSupplier(usersTierOneSuppliers);
+      setTierOneSuppliers([usersTierOneSuppliers]);
       setConfirmLoading(true);
       setTimeout(() => {
         close();

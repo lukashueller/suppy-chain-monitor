@@ -13,6 +13,7 @@ const { Title } = Typography;
 const Home = () => {
   initSessionStorage("userObject", JSON.stringify(null));
   initSessionStorage("completeDB", JSON.stringify(null));
+  initSessionStorage("tierOneSuppliers", JSON.stringify([]));
 
   async function fetchCompleteDatabase() {
     const completeDB = await getCompleteDatabase();

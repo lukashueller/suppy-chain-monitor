@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
@@ -8,10 +8,18 @@ import NotSignedUpModal from "./NotSignedUpModal/NotSignedUpModal.jsx";
 import SupplierDetailsModal from "./SupplierDetailsModal/SupplierDetailsModal.jsx";
 
 const SupplierNetwork = () => {
-  const [enterFirstSupplierModalOpen, setEnterFirstSupplierModalOpen] = useState(true);
   const [notSignedInModalOpen, setNotSignedInModalOpen] = useState(false);
   const [supplierDetailsModalOpen, setSupplierDetailsModalOpen] = useState(false);
-  const [singleSupplier, setSingleSupplier] = useState(null);
+  const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState(
+    JSON.parse(sessionStorage.getItem("tierOneSuppliers"))
+  );
+  const [enterFirstSupplierModalOpen, setEnterFirstSupplierModalOpen] = useState(
+    usersTierOneSuppliers.length === 0 ? true : false
+  );
+
+  useEffect(() => {
+    sessionStorage.setItem("tierOneSuppliers", JSON.stringify(usersTierOneSuppliers));
+  }, [usersTierOneSuppliers]);
 
   const handleNodeClick = (evt) => {
     const userObject = JSON.parse(sessionStorage.getItem("userObject"));
@@ -34,11 +42,13 @@ const SupplierNetwork = () => {
         open={enterFirstSupplierModalOpen}
         mask={true}
         close={() => setEnterFirstSupplierModalOpen(false)}
-        setSingleSupplier={(singleSupplier) => setSingleSupplier(singleSupplier)}
+        setTierOneSuppliers={(tierOneSuppliers) => {
+          setUsersTierOneSuppliers(tierOneSuppliers);
+        }}
       />
       <HeaderNavbar selectedKey={2} />
       <NetworkGraph
-        rootNodeValue={singleSupplier}
+        rootNodeValue={usersTierOneSuppliers[0] /*TODO: FULL GRAPH*/}
         handleNodeClick={(evt) => handleNodeClick(evt)}
       />
     </Row>

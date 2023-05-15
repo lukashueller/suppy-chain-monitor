@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-
 import React, { useEffect, useState } from "react";
 import Graphin from "@antv/graphin";
 import { v4 as uuidv4 } from "uuid";
@@ -11,7 +10,7 @@ function NetworkGraph(props) {
   const [graphData, setGraphData] = useState(null);
 
   const handleFetch = async () => {
-    if (rootNodeValue === null) return;
+    if (rootNodeValue === null || typeof rootNodeValue === "undefined") return;
     const fetchedNetwork = await getNetworkForCompany(rootNodeValue);
     const { network } = fetchedNetwork;
     setGraphData(await generateNetworkHierarchy(network));
