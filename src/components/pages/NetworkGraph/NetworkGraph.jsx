@@ -9,7 +9,7 @@ const NetworkGraph = (props) => {
   const { handleNodeClick, tierOneSuppliers, usedInDrawer } = props;
   const [graphData, setGraphData] = useState(null);
 
-  const generateNetworkHierarchy = async (networkArrayForTierOneSuppliers, depth = 0) => {
+  const generateNetworkHierarchy = async (networkArrayForTierOneSuppliers) => {
     const children = await Promise.all(
       networkArrayForTierOneSuppliers.map(
         async (supplier) => await generateNetworkHierarchyForSingleSupplier(supplier.network)
@@ -17,14 +17,15 @@ const NetworkGraph = (props) => {
     );
 
     // CHANGE STUFF FOR ROOT NODE HERE
+    const uuid = uuidv4().toString();
     return {
-      id: uuidv4().toString(),
-      collapsed: depth > 2,
-      name: "MY COMPANY", // getLabelForCompany(network.value)*/,
-      /* company_no: `HRB${uuid.substring(0, 4)}`,
-      esgWarningLevel: company_data?.estimated_risk,
-      dataType: depth === 0 ? "root" : "node",
-      keyInfo: company_data?.contact, */
+      id: uuid,
+      dataType: "root",
+      collapsed: false,
+      name: "YOUR COMPANY",
+      company_no: `HRB${uuid.substring(0, 4)}`,
+      //esgWarningLevel: company_data?.estimated_risk,
+      //keyInfo: company_data?.contact, */
       children: children,
     };
   };
