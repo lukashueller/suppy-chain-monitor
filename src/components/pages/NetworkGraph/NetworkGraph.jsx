@@ -5,23 +5,53 @@ import { v4 as uuidv4 } from "uuid";
 import { getDataForCompany, getLabelForCompany, getNetworkForCompany } from "../../../utils/api";
 import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";
 
-function NetworkGraph(props) {
-  const { rootNodeValue, handleNodeClick } = props;
+const NetworkGraph = (props) => {
+  const { handleNodeClick, tierOneSuppliers, usedInDrawer } = props;
   const [graphData, setGraphData] = useState(null);
 
-  const handleFetch = async () => {
-    if (rootNodeValue === null || typeof rootNodeValue === "undefined") return;
-    const fetchedNetwork = await getNetworkForCompany(rootNodeValue);
-    const { network } = fetchedNetwork;
-    setGraphData(await generateNetworkHierarchy(network));
+  const generateNetworkHierarchy = async (networkArrayForTierOneSuppliers, depth = 0) => {
+    const children = await Promise.all(
+      networkArrayForTierOneSuppliers.map(
+        async (supplier) => await generateNetworkHierarchyForSingleSupplier(supplier.network)
+      )
+    );
+
+    // CHANGE STUFF FOR ROOT NODE HERE
+    return {
+      id: uuidv4().toString(),
+      collapsed: depth > 2,
+      name: "MY COMPANY", // getLabelForCompany(network.value)*/,
+      /* company_no: `HRB${uuid.substring(0, 4)}`,
+      esgWarningLevel: company_data?.estimated_risk,
+      dataType: depth === 0 ? "root" : "node",
+      keyInfo: company_data?.contact, */
+      children: children,
+    };
   };
 
-  const generateNetworkHierarchy = async (network, depth = 0) => {
+  const handleFetch = async () => {
+    const networkArrayForTierOneSuppliers = await Promise.all(
+      tierOneSuppliers.map(async (supplier) => {
+        return await getNetworkForCompany(supplier);
+      })
+    );
+
+    if (usedInDrawer) {
+      const { network } = await getNetworkForCompany(tierOneSuppliers[0]);
+      setGraphData(await generateNetworkHierarchyForSingleSupplier(network));
+    } else {
+      setGraphData(await generateNetworkHierarchy(networkArrayForTierOneSuppliers));
+    }
+  };
+
+  const generateNetworkHierarchyForSingleSupplier = async (network, depth = 1) => {
     const uuid = uuidv4().toString();
     const company_data = await getDataForCompany(network.value);
 
     const children = await Promise.all(
-      (network.tier1 ?? []).map(async (supplier) => generateNetworkHierarchy(supplier, depth + 1))
+      (network.tier1 ?? []).map(async (supplier) =>
+        generateNetworkHierarchyForSingleSupplier(supplier, depth + 1)
+      )
     );
 
     return {
@@ -38,7 +68,7 @@ function NetworkGraph(props) {
 
   useEffect(() => {
     handleFetch();
-  }, [rootNodeValue]);
+  }, [tierOneSuppliers]);
 
   Graphin.registerNode("lbbw-node", lbbwNodeConfig);
 
@@ -55,8 +85,7 @@ function NetworkGraph(props) {
     },
   });
 
-  if (rootNodeValue === null) return null;
-  if (graphData === null) {
+  if (graphData === null || graphData.children.length === 0) {
     return <h1>Loading...</h1>;
   }
   return (
@@ -80,6 +109,6 @@ function NetworkGraph(props) {
       defaultEdge={{ type: "cubic-horizontal" }}
     />
   );
-}
+};
 
 export default NetworkGraph;

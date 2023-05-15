@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Button, Typography, Drawer, Space, Card, Col, Row } from "antd";
+import { Divider, Button, Drawer, Space } from "antd";
 import NetworkGraph from "../../NetworkGraph/NetworkGraph";
 /* eslint-disable-next-line max-len */
 import AboutSection from "../../../multiPageComponents/SupplierInfoSections/AboutSection/AboutSection";
@@ -14,7 +14,7 @@ const SupplierDrawer = (props) => {
   const returnGraphSection = () => {
     return (
       <>
-        <NetworkGraph rootNodeValue={companyData.value} />
+        <NetworkGraph tierOneSuppliers={[companyData.value]} usedInDrawer={true} />
         {/* <Button style={{ width: "100%" }}>
               See simulation of company's supply chain network
             </Button> */}
@@ -42,7 +42,7 @@ const SupplierDrawer = (props) => {
       <RiskSection companyData={companyData} />
       <AlternativesSection companyData={companyData} />
       <Divider>Supplier Network</Divider>
-      {/* returnGraphSection() */}
+      {returnGraphSection()}
     </Drawer>
   );
 };

@@ -48,7 +48,7 @@ const SupplierNetwork = () => {
       />
       <HeaderNavbar selectedKey={2} />
       <NetworkGraph
-        rootNodeValue={usersTierOneSuppliers[0] /*TODO: FULL GRAPH*/}
+        tierOneSuppliers={usersTierOneSuppliers}
         handleNodeClick={(evt) => handleNodeClick(evt)}
       />
     </Row>
