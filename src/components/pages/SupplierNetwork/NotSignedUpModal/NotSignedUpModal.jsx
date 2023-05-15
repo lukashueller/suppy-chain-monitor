@@ -1,5 +1,5 @@
 import { Modal, List, Button, Typography, Space } from "antd";
-import { RightOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import { RightOutlined, CheckCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 // import styles from "./NotSignedUpModal.module.css";
@@ -18,10 +18,15 @@ const NotSignedUpModal = (props) => {
 
   return (
     <Modal
-      title="Glad to know you're intrigued!"
+      className="modalStyle-dark"
       open={open}
       onCancel={handleOk}
-      /* className={styles.customModal} */
+      title={
+        <div level={4} style={{ color: "white" }}>
+          Glad to know you're intrigued!
+        </div>
+      }
+      closeIcon={<CloseOutlined style={{ color: "white" }} />}
       footer={
         <div style={{ textAlign: "right" }}>
           <Link to="/signup">
@@ -36,7 +41,7 @@ const NotSignedUpModal = (props) => {
       <List
         dataSource={data}
         renderItem={(item, index) => (
-          <List.Item key={index}>
+          <List.Item key={index} style={{ color: "white", borderBottom: "1px solid white" }}>
             <Space direction="horizontal">
               <CheckCircleOutlined />
               {item}

@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.modalStyle-dark .ant-modal-content, .modalStyle-dark .ant-modal-title {
+  background-color: #1A314E;
+}
