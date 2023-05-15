@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Row, Modal } from "antd";
+import React, { useState } from "react";
+import { Row } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import EnterFirstSupplierModal from "./EnterFirstSupplierModal/EnterFirstSupplierModal.jsx";
 import NetworkGraph from "../NetworkGraph/NetworkGraph.jsx";
 import NotSignedUpModal from "./NotSignedUpModal/NotSignedUpModal.jsx";
+import SupplierDetailsModal from "./SupplierDetailsModal/SupplierDetailsModal.jsx";
 
 const SupplierNetwork = () => {
   const [enterFirstSupplierModalOpen, setEnterFirstSupplierModalOpen] = useState(true);
   const [notSignedInModalOpen, setNotSignedInModalOpen] = useState(false);
+  const [supplierDetailsModalOpen, setSupplierDetailsModalOpen] = useState(false);
   const [singleSupplier, setSingleSupplier] = useState(null);
 
   const handleNodeClick = (evt) => {
@@ -16,13 +18,18 @@ const SupplierNetwork = () => {
     if (userObject === null) {
       setNotSignedInModalOpen(true);
     } else {
-      // open SupplierDetails Modal
+      setSupplierDetailsModalOpen(true);
     }
   };
 
   return (
     <Row justify="center" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
       <NotSignedUpModal open={notSignedInModalOpen} close={() => setNotSignedInModalOpen(false)} />
+      <SupplierDetailsModal
+        open={supplierDetailsModalOpen}
+        close={() => setSupplierDetailsModalOpen(false)}
+        supplierValue={"bosch_gmbh"}
+      />
       <EnterFirstSupplierModal
         open={enterFirstSupplierModalOpen}
         mask={true}
