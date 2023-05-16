@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Typography, Space } from "antd";
+import { Modal, Typography, Space, Divider } from "antd";
 
 import SupplierSelector from "../../../multiPageComponents/SupplierSelector/SupplierSelector";
 import PurchaseDragger from "../../../multiPageComponents/PurchaseDragger/PurchaseDragger";
@@ -34,10 +34,11 @@ const EnterFirstSupplierModal = (props) => {
       open={open}
       closable={false}
       onOk={handleOk}
+      width={600}
       confirmLoading={confirmLoading}
       cancelButtonProps={{ style: { display: "none" } }}
     >
-      <Space direction="vertical" style={{ width: "100%" }}>
+      <Space direction="vertical" style={{ width: "100%", paddingTop: "1rem" }}>
         <SupplierSelector
           isInModal={true}
           usersTierOneSuppliers={usersTierOneSuppliers}
@@ -51,6 +52,7 @@ const EnterFirstSupplierModal = (props) => {
             You have to select a supplier!
           </Text>
         ) : null}
+        <Divider>or</Divider>
         <PurchaseDragger
           handleSuccessfulUpload={(response) => {
             handleSuccessfulUpload(response);

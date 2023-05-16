@@ -28,10 +28,13 @@ const PurchaseDragger = (props) => {
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
       </p>
-      <p className="ant-upload-text">Click or drag purchasing EXCEL to this area to upload</p>
+      <p className="ant-upload-text">
+        Click to search your files or drag purchasing EXCEL to this area to upload
+      </p>
       <p className="ant-upload-hint">
-        Support for a single or bulk upload. Strictly prohibited from uploading company data or
-        other banned files.
+        Multiple file upload is supported
+        <br />
+        By uploading files you agree to our Terms & Conditions
       </p>
     </Dragger>
   );
