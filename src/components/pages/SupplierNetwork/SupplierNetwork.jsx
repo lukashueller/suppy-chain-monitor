@@ -54,6 +54,7 @@ const SupplierNetwork = () => {
         <SupplierSelector
           usersTierOneSuppliers={usersTierOneSuppliers}
           setUsersTierOneSuppliers={(val) => setUsersTierOneSuppliers(val)}
+          isOnNetworkView={true}
         />
         <NetworkGraph
           tierOneSuppliers={usersTierOneSuppliers}
