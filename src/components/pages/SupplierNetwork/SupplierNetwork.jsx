@@ -19,6 +19,17 @@ const SupplierNetwork = () => {
     usersTierOneSuppliers.length === 0 ? true : false
   );
 
+  const handleSuccessfulUpload = async (response) => {
+    const newSuppliers = [];
+    response.company_dist_values.forEach((company) => {
+      if (!usersTierOneSuppliers.includes(company)) {
+        newSuppliers.push(company);
+      }
+    });
+
+    setUsersTierOneSuppliers([...usersTierOneSuppliers, newSuppliers].flat());
+  };
+
   useEffect(() => {
     setLoading(true);
     sessionStorage.setItem("tierOneSuppliers", JSON.stringify(usersTierOneSuppliers));
@@ -48,6 +59,7 @@ const SupplierNetwork = () => {
         setTierOneSuppliers={(tierOneSuppliers) => {
           setUsersTierOneSuppliers(tierOneSuppliers);
         }}
+        handleSuccessfulUpload={handleSuccessfulUpload}
       />
       <HeaderNavbar selectedKey={2} />
       <Space size={"small"} direction="vertical" style={{ width: "100%", padding: "1rem" }}>

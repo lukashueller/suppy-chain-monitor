@@ -1,27 +1,31 @@
 import React, { useState } from "react";
-import { Modal, Button, Typography, Space } from "antd";
+import { Modal, Typography, Space } from "antd";
 
 import SupplierSelector from "../../../multiPageComponents/SupplierSelector/SupplierSelector";
+import PurchaseDragger from "../../../multiPageComponents/PurchaseDragger/PurchaseDragger";
 
 const { Text } = Typography;
 
 const EnterFirstSupplierModal = (props) => {
-  const { open, close, setTierOneSuppliers } = props;
+  const { open, close, setTierOneSuppliers, handleSuccessfulUpload } = props;
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState([]);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [displayAlert, setDisplayAlert] = useState(false);
+  const [successfulUpload, setSuccessfulUpload] = useState(false);
 
   const handleOk = () => {
-    if (usersTierOneSuppliers.length === 0) {
+    if (usersTierOneSuppliers.length === 0 && !successfulUpload) {
       setDisplayAlert(true);
-    } else {
+      return;
+    } else if (!successfulUpload) {
       setTierOneSuppliers([usersTierOneSuppliers]);
-      setConfirmLoading(true);
-      setTimeout(() => {
-        close();
-        setConfirmLoading(false);
-      }, 800);
     }
+
+    setConfirmLoading(true);
+    setTimeout(() => {
+      close();
+      setConfirmLoading(false);
+    }, 800);
   };
 
   return (
@@ -47,6 +51,13 @@ const EnterFirstSupplierModal = (props) => {
             You have to select a supplier!
           </Text>
         ) : null}
+        <PurchaseDragger
+          handleSuccessfulUpload={(response) => {
+            handleSuccessfulUpload(response);
+            setSuccessfulUpload(true);
+            setDisplayAlert(false);
+          }}
+        />
       </Space>
     </Modal>
   );
