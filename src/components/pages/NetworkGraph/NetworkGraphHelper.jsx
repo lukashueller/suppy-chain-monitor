@@ -205,10 +205,10 @@ export const getNodeConfig = (node) => {
     // blue
     case "low":
       config = {
-        basicColor: "#5B8FF9",
-        fontColor: "#5B8FF9",
-        borderColor: "#5B8FF9",
-        bgColor: "#C6E5FF",
+        basicColor: "#698B22",
+        fontColor: "#FFF",
+        borderColor: "#698B22",
+        bgColor: "#9ACD32",
         idFillColor: "#FFF",
         idStrokeColor: null,
         idTextColor: "rgba(0,0,0,0.65)",
