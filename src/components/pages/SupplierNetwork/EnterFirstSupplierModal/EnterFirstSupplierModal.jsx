@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Typography, Space } from "antd";
 
-import SupplierSelector from "../../Modeler/SupplierSelector/SupplierSelector";
+import SupplierSelector from "../../../multiPageComponents/SupplierSelector/SupplierSelector";
 
 const { Text } = Typography;
 

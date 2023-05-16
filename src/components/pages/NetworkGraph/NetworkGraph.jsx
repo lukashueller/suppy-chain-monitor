@@ -6,7 +6,7 @@ import { getDataForCompany, getLabelForCompany, getNetworkForCompany } from "../
 import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";
 
 const NetworkGraph = (props) => {
-  const { handleNodeClick, tierOneSuppliers, usedInDrawer } = props;
+  const { handleNodeClick, tierOneSuppliers, usedInDrawer, loading, setLoading } = props;
   const [graphData, setGraphData] = useState(null);
 
   const generateNetworkHierarchy = async (networkArrayForTierOneSuppliers) => {
@@ -41,6 +41,7 @@ const NetworkGraph = (props) => {
       const { network } = await getNetworkForCompany(tierOneSuppliers[0]);
       setGraphData(await generateNetworkHierarchyForSingleSupplier(network));
     } else {
+      setLoading(false);
       setGraphData(await generateNetworkHierarchy(networkArrayForTierOneSuppliers));
     }
   };
@@ -88,14 +89,15 @@ const NetworkGraph = (props) => {
     },
   });
 
-  if (graphData === null || graphData.children.length === 0) {
-    return <h1>Loading...</h1>;
+  if (graphData === null || graphData.children.length === 0 || loading) {
+    return <h1 style={{ height: "74vh" }}>Loading...</h1>; // we love magic numbers :D
   }
   return (
     <Graphin
       data={graphData}
       layout={graphine_graph_layout}
       animate
+      style={{ borderRadius: "5px" }}
       modes={{
         default: [
           "custom-node-click-behavior",

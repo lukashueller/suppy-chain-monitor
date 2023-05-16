@@ -5,7 +5,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
-import SupplierSelector from "./SupplierSelector/SupplierSelector.jsx";
+import SupplierSelector from "../../multiPageComponents/SupplierSelector/SupplierSelector.jsx";
 
 const Modeler = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState(
