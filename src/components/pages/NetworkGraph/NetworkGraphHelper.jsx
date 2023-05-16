@@ -247,7 +247,7 @@ export const lbbwNodeConfig = {
     const container = nodeBasicMethod.createNodeBox(group, config, 243, 64, isRoot);
 
     const overNodeText = "";
-    const companyNo = cfg.company_no;
+    const companyNo = cfg.risk_label;
     const name = cfg.name;
     const description = cfg.keyInfo;
 

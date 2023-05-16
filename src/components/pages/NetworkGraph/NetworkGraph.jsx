@@ -46,9 +46,11 @@ const NetworkGraph = (props) => {
   };
 
   const generateNetworkHierarchyForSingleSupplier = async (network, depth = 1) => {
-    const uuid = uuidv4().toString();
     const company_data = await getDataForCompany(network.value);
 
+    const risk_label =
+      company_data?.estimated_risk +
+      (company_data?.estimated_risk === "unestimated" ? "" : " risk");
     const children = await Promise.all(
       (network.tier1 ?? []).map(async (supplier) =>
         generateNetworkHierarchyForSingleSupplier(supplier, depth + 1)
@@ -56,13 +58,13 @@ const NetworkGraph = (props) => {
     );
 
     return {
-      id: uuid,
+      id: uuidv4().toString(),
       collapsed: depth > 2,
       name: getLabelForCompany(network.value),
-      company_no: `HRB391${uuid.substring(0, 4)}`,
+      risk_label: risk_label,
       esgWarningLevel: company_data?.estimated_risk,
       dataType: depth === 0 ? "root" : "node",
-      keyInfo: company_data?.contact,
+      keyInfo: "Source: TBD" /* company_data?.contact */,
       children: children,
     };
   };
