@@ -43,7 +43,7 @@ const HeaderNavbar = (props) => {
       return <Button type="primary">Supplier Overview</Button>;
     } else {
       return (
-        <Link to="/modeler">
+        <Link to="/list_overview">
           <Button>Supplier Overview</Button>
         </Link>
       );

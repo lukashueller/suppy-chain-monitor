@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ConfigProvider } from "antd";
 
 import Home from "./pages/Home/Home";
-import Modeler from "./pages/Modeler/Modeler";
+import ListOverview from "./pages/ListOverview/ListOverview";
 import SupplierNetwork from "./pages/SupplierNetwork/SupplierNetwork";
 import Error from "./pages/Error/Error";
 import Login from "./pages/Login/Login";
@@ -17,7 +17,7 @@ const App = () => (
     <BrowserRouter basename="/suppy-chain-monitor">
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="/modeler" element={<Modeler />} />
+        <Route path="/list_overview" element={<ListOverview />} />
         <Route path="/network" element={<SupplierNetwork />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

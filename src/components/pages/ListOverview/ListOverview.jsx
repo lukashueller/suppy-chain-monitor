@@ -7,7 +7,7 @@ import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 import SupplierSelector from "../../multiPageComponents/SupplierSelector/SupplierSelector.jsx";
 
-const Modeler = () => {
+const ListOverview = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState(
     JSON.parse(sessionStorage.getItem("tierOneSuppliers"))
   );
@@ -95,4 +95,4 @@ const Modeler = () => {
   );
 };
 
-export default Modeler;
+export default ListOverview;
