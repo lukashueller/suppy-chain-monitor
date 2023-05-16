@@ -111,10 +111,13 @@ const NetworkGraph = (props) => {
       }}
       fitView
       defaultNode={{ type: "lbbw-node" }}
-      defaultEdge={{ type: "cubic-horizontal",style: {
-        stroke: "#E20074",
-        lineWidth: 5,
-      },}}
+      defaultEdge={{
+        type: "cubic-horizontal",
+        style: {
+          stroke: "grey" /* "#E20074" */,
+          lineWidth: 2,
+        },
+      }}
     />
   );
 };
