@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Space } from "antd";
+import { Row } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import EnterFirstSupplierModal from "./EnterFirstSupplierModal/EnterFirstSupplierModal.jsx";
@@ -45,7 +45,8 @@ const SupplierNetwork = () => {
   };
 
   return (
-    <Row style={{ backgroundColor: "#E0E0E0", height: "100vh", alignItems: "flex-start" }}>
+    <Row align="top" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
+      <HeaderNavbar selectedKey={2} />
       <NotSignedUpModal open={notSignedInModalOpen} close={() => setNotSignedInModalOpen(false)} />
       <SupplierDetailsModal
         open={supplierDetailsModalOpen}
@@ -61,8 +62,7 @@ const SupplierNetwork = () => {
         }}
         handleSuccessfulUpload={handleSuccessfulUpload}
       />
-      <HeaderNavbar selectedKey={2} />
-      <Space size={"small"} direction="vertical" style={{ width: "100%", padding: "1rem" }}>
+      <div style={{ width: "100%", padding: "1rem" }}>
         <SupplierSelector
           usersTierOneSuppliers={usersTierOneSuppliers}
           setUsersTierOneSuppliers={(val) => setUsersTierOneSuppliers(val)}
@@ -74,7 +74,7 @@ const SupplierNetwork = () => {
           loading={loading}
           setLoading={setLoading}
         />
-      </Space>
+      </div>
     </Row>
   );
 };

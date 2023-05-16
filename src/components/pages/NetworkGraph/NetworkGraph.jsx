@@ -97,7 +97,7 @@ const NetworkGraph = (props) => {
       data={graphData}
       layout={graphine_graph_layout}
       animate
-      style={{ borderRadius: "5px", backgroundColor: "#E0E0E0" }}
+      style={{ borderRadius: "5px", backgroundColor: "#E0E0E0", height: "80vh" }}
       modes={{
         default: [
           "custom-node-click-behavior",
