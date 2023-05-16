@@ -118,7 +118,7 @@ export const nodeBasicMethod = {
       icon.on("mouseleave", () => {
         bg.attr("opacity", 0);
       });
-      icon.on("click", () => console.log(""));
+      //icon.on("click", () => console.log("Collapse_clicked"));
     }
   },
   setState: (name, value, item) => {

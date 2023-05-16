@@ -83,8 +83,8 @@ const NetworkGraph = (props) => {
       };
     },
     onNodeClick(evt) {
-      /* console.log(evt);
-      console.log(evt.target); */
+      if (evt.target.constructor.name === "Marker") return;
+
       handleNodeClick(evt);
     },
   });
