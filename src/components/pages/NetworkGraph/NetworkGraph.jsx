@@ -65,7 +65,7 @@ const NetworkGraph = (props) => {
       risk_label: risk_label,
       esgWarningLevel: company_data?.estimated_risk,
       dataType: depth === 0 ? "root" : "node",
-      keyInfo: "Source: TBD" /* company_data?.contact */,
+      keyInfo: "Source: " + company_data?.confirmation,
       children: children,
     };
   };
