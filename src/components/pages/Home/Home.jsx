@@ -34,7 +34,6 @@ const Home = () => {
         xxl={6}
         style={{
           backgroundColor: "#1A314E",
-          minHeight: "50vh",
           marginTop: "30vh",
         }}
       >
