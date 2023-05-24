@@ -6,6 +6,7 @@ import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.js
 import SupplierBox from "./SupplierBox/SupplierBox.jsx";
 import UploadDataModal from "./UploadDataModal/UploadDataModal.jsx";
 import SupplierSelector from "../../multiPageComponents/SupplierSelector/SupplierSelector.jsx";
+import { updateTierOneSuppliers } from "../../../utils/api.js";
 
 const ListOverview = () => {
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState(
@@ -15,6 +16,7 @@ const ListOverview = () => {
 
   useEffect(() => {
     sessionStorage.setItem("tierOneSuppliers", JSON.stringify(usersTierOneSuppliers));
+    updateTierOneSuppliers(usersTierOneSuppliers);
   }, [usersTierOneSuppliers]);
 
   const handleSuccessfulUpload = async (response) => {

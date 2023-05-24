@@ -9,9 +9,9 @@ const { Title, Text } = Typography;
 const Signup = () => {
   let navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     sessionStorage.setItem("userObject", JSON.stringify(values));
-    upsertUserToDatabase(values);
+    await upsertUserToDatabase(values, JSON.parse(sessionStorage.getItem("tierOneSuppliers")));
     navigate(-1);
   };
 

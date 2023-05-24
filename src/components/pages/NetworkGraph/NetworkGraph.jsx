@@ -90,7 +90,7 @@ const NetworkGraph = (props) => {
   });
 
   if (graphData === null || graphData.children.length === 0 || loading) {
-    return <h1 style={{ height: "74vh" }}>Loading...</h1>; // we love magic numbers :D
+    return <h1 style={{ height: "66vh", paddingLeft: "1rem" }}>Loading...</h1>; // we love magic numbers :D
   }
   return (
     <Graphin

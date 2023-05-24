@@ -1,17 +1,27 @@
-import React, { useState } from "react";
-import { Card, Button, Row, Typography, Drawer, Space, Tooltip } from "antd";
+import React, { useEffect, useState } from "react";
+import { Card, Button, Row, Typography, Space, Tooltip } from "antd";
 
 import { DeleteOutlined, WarningOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { getDataForCompany } from "../../../../utils/api";
 import SupplierDrawer from "../SupplierDrawer/SupplierDrawer";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 const SupplierBox = (props) => {
   const { supplier, onSupplierDeletion } = props;
   const [open, setOpen] = useState(false);
+  const [companyData, setCompanyData] = useState();
 
-  const companyData = getDataForCompany(supplier);
+  const handleFetch = async () => {
+    const companyData = await getDataForCompany(supplier);
+    setCompanyData(companyData);
+  };
+
+  useEffect(() => {
+    handleFetch();
+  }, [open]);
+
+  if (typeof companyData === "undefined") return null;
 
   const handleDeletionClick = () => {
     onSupplierDeletion(supplier);

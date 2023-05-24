@@ -8,6 +8,9 @@ import NotSignedUpModal from "./NotSignedUpModal/NotSignedUpModal.jsx";
 import SupplierDetailsModal from "./SupplierDetailsModal/SupplierDetailsModal.jsx";
 import SupplierSelector from "../../multiPageComponents/SupplierSelector/SupplierSelector.jsx";
 
+import { updateTierOneSuppliers } from "../../../utils/api.js";
+import BoxKPISection from "./BoxKPISection/BoxKPISection.jsx";
+
 const SupplierNetwork = () => {
   const [notSignedInModalOpen, setNotSignedInModalOpen] = useState(false);
   const [supplierDetailsModalOpen, setSupplierDetailsModalOpen] = useState(false);
@@ -33,6 +36,7 @@ const SupplierNetwork = () => {
   useEffect(() => {
     setLoading(true);
     sessionStorage.setItem("tierOneSuppliers", JSON.stringify(usersTierOneSuppliers));
+    updateTierOneSuppliers(usersTierOneSuppliers);
   }, [usersTierOneSuppliers]);
 
   const handleNodeClick = (evt) => {
@@ -45,7 +49,7 @@ const SupplierNetwork = () => {
   };
 
   return (
-    <Row align="top" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
+    <div align="top" style={{ backgroundColor: "#E0E0E0", height: "100vh" }}>
       <HeaderNavbar selectedKey={2} />
       <NotSignedUpModal open={notSignedInModalOpen} close={() => setNotSignedInModalOpen(false)} />
       <SupplierDetailsModal
@@ -62,20 +66,24 @@ const SupplierNetwork = () => {
         }}
         handleSuccessfulUpload={handleSuccessfulUpload}
       />
-      <div style={{ width: "100%", padding: "1rem" }}>
+      <div style={{ padding: "1rem" }}>
+        <BoxKPISection supplier={usersTierOneSuppliers} />
         <SupplierSelector
           usersTierOneSuppliers={usersTierOneSuppliers}
-          setUsersTierOneSuppliers={(val) => setUsersTierOneSuppliers(val)}
+          setUsersTierOneSuppliers={(val) => {
+            updateTierOneSuppliers(usersTierOneSuppliers);
+            setUsersTierOneSuppliers(val);
+          }}
           isOnNetworkView={true}
         />
-        <NetworkGraph
+        {/* <NetworkGraph
           tierOneSuppliers={usersTierOneSuppliers}
           handleNodeClick={(evt) => handleNodeClick(evt)}
           loading={loading}
           setLoading={setLoading}
-        />
+        /> */}
       </div>
-    </Row>
+    </div>
   );
 };
 
