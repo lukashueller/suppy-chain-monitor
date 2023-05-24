@@ -2,8 +2,6 @@ import { Modal, List, Button, Typography, Space } from "antd";
 import { RightOutlined, CheckCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-// import styles from "./NotSignedUpModal.module.css";
-
 const NotSignedUpModal = (props) => {
   const { open, close } = props;
 
