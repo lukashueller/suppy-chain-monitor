@@ -2,13 +2,19 @@
 import React, { useEffect, useState } from "react";
 import Graphin from "@antv/graphin";
 import { v4 as uuidv4 } from "uuid";
-import { getDataForCompany, getLabelForCompany, getNetworkForCompany } from "../../../utils/api";
+import {
+  getDataForCompany,
+  getLabelForCompany,
+  getNetworkForCompany,
+  getNetworkForCompany2,
+} from "../../../utils/api";
 import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";
 
 const NetworkGraph = (props) => {
   const { handleNodeClick, tierOneSuppliers, usedInDrawer, loading, setLoading } = props;
   const [graphData, setGraphData] = useState(null);
 
+  const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
   const generateNetworkHierarchy = async (networkArrayForTierOneSuppliers) => {
     const children = await Promise.all(
       networkArrayForTierOneSuppliers.map(
@@ -33,7 +39,8 @@ const NetworkGraph = (props) => {
   const handleFetch = async () => {
     const networkArrayForTierOneSuppliers = await Promise.all(
       tierOneSuppliers.map(async (supplier) => {
-        return await getNetworkForCompany(supplier);
+        //console.log(await getNetworkForCompany(supplier));
+        return await getNetworkForCompany2(supplier);
       })
     );
 
@@ -61,7 +68,7 @@ const NetworkGraph = (props) => {
     return {
       id: uuidv4().toString(),
       collapsed: depth > 2,
-      name: getLabelForCompany(network.value),
+      name: getLabelForCompany(network.value, completeDB),
       risk_label: risk_label,
       esgWarningLevel: company_data?.estimated_risk,
       dataType: depth === 0 ? "root" : "node",

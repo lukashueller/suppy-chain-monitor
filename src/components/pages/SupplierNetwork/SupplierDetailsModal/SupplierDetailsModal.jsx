@@ -11,6 +11,7 @@ import AlternativesSection from "../../../multiPageComponents/SupplierInfoSectio
 
 const SupplierDetailsModal = (props) => {
   const { open, close, supplierValue } = props;
+  const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
 
   const handleOk = () => close();
 
@@ -18,7 +19,7 @@ const SupplierDetailsModal = (props) => {
 
   return (
     <Modal
-      title={"More Information about: " + getLabelForCompany(supplierValue)}
+      title={"More Information about: " + getLabelForCompany(supplierValue, completeDB)}
       open={open}
       onCancel={handleOk}
       /* className={styles.customModal} */

@@ -76,12 +76,12 @@ const SupplierNetwork = () => {
           }}
           isOnNetworkView={true}
         />
-        {/* <NetworkGraph
+        <NetworkGraph
           tierOneSuppliers={usersTierOneSuppliers}
           handleNodeClick={(evt) => handleNodeClick(evt)}
           loading={loading}
           setLoading={setLoading}
-        /> */}
+        />
       </div>
     </div>
   );
