@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import {
   getDataForCompanyLocal,
   getLabelForCompany,
-  getNetworkForCompany,
   getNetworkForCompany2,
 } from "../../../utils/api";
 import { graphine_graph_layout, nodeOnToggleCollapse, lbbwNodeConfig } from "./NetworkGraphHelper";

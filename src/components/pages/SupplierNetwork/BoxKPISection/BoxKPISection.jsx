@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Typography, Button, Skeleton } from "antd";
+import { Row, Col, Typography, Skeleton } from "antd";
 
+import {
+  getCompleteDatabase,
+  getNetworkForCompany2,
+  updateTierOneSuppliers,
+} from "../../../../utils/api";
 import "../SupplierNetwork.modules.css";
-import { getCompleteDatabase, getNetworkForCompany2 } from "../../../../utils/api";
 
 const { Text } = Typography;
 
@@ -17,6 +21,7 @@ const BoxKPISection = (props) => {
     const username = JSON.parse(sessionStorage.getItem("userObject"));
     if (username === null) return null;
 
+    await updateTierOneSuppliers(supplier);
     const completeDB = await getCompleteDatabase();
     sessionStorage.setItem("completeDB", JSON.stringify(completeDB));
     const network = await getNetworkForCompany2(username.backendUserValue);
