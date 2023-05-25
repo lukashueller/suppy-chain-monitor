@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Graphin from "@antv/graphin";
 import { v4 as uuidv4 } from "uuid";
 import {
-  getDataForCompany,
+  getDataForCompanyLocal,
   getLabelForCompany,
   getNetworkForCompany,
   getNetworkForCompany2,
@@ -18,7 +18,8 @@ const NetworkGraph = (props) => {
   const generateNetworkHierarchy = async (networkArrayForTierOneSuppliers) => {
     const children = await Promise.all(
       networkArrayForTierOneSuppliers.map(
-        async (supplier) => await generateNetworkHierarchyForSingleSupplier(supplier.network)
+        async (supplier) =>
+          await generateNetworkHierarchyForSingleSupplier(supplier.network, completeDB)
       )
     );
 
@@ -53,15 +54,15 @@ const NetworkGraph = (props) => {
     }
   };
 
-  const generateNetworkHierarchyForSingleSupplier = async (network, depth = 1) => {
-    const company_data = await getDataForCompany(network.value);
+  const generateNetworkHierarchyForSingleSupplier = async (network, completeDB, depth = 1) => {
+    const company_data = await getDataForCompanyLocal(network.value, completeDB);
 
     const risk_label =
       company_data?.estimated_risk +
       (company_data?.estimated_risk === "unestimated" ? "" : " risk");
     const children = await Promise.all(
       (network.tier1 ?? []).map(async (supplier) =>
-        generateNetworkHierarchyForSingleSupplier(supplier, depth + 1)
+        generateNetworkHierarchyForSingleSupplier(supplier, completeDB, depth + 1)
       )
     );
 

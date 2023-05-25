@@ -167,6 +167,7 @@ export {
   getAllCompanyNames,
   getCompleteDatabase,
   getDataForCompany,
+  getDataForCompanyLocal,
   getLabelForCompany,
   getNetworkForCompany,
   getNetworkForCompany2,

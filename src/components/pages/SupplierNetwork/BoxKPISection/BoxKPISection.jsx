@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Button, Skeleton } from "antd";
 
 import "../SupplierNetwork.modules.css";
-import { getNetworkForCompany } from "../../../../utils/api";
+import { getCompleteDatabase, getNetworkForCompany2 } from "../../../../utils/api";
 
 const { Text } = Typography;
 
@@ -16,7 +16,10 @@ const BoxKPISection = (props) => {
   const handleFetch = async () => {
     const username = JSON.parse(sessionStorage.getItem("userObject"));
     if (username === null) return null;
-    const network = await getNetworkForCompany(username.backendUserValue);
+
+    const completeDB = await getCompleteDatabase();
+    sessionStorage.setItem("completeDB", JSON.stringify(completeDB));
+    const network = await getNetworkForCompany2(username.backendUserValue);
 
     setNumberSuppliers(network.companies_count);
     setNumberHighRisk(network.high_risk_count);
