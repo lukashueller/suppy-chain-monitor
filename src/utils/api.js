@@ -108,24 +108,10 @@ const getNetworkForCompany = async (companyName) => {
 const getNetworkForCompany2 = (companyName) => {
   const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
 
-  const dataForCompany = getDataForCompanyLocal(companyName, completeDB);
-
-  let numberOfSuppliers = 1;
-  let numberOfHighRiskSuppliers = 0;
-  // build basic object frame
-  let networkObject = {};
-  networkObject.value = companyName;
-  networkObject.supplier_source = dataForCompany.supplier_source;
-  networkObject.estimated_risk = dataForCompany.estimated_risk;
-  networkObject.sales_tier = dataForCompany.sales_tier;
-  networkObject.alternatives = dataForCompany.alternatives;
-
-  //build KeyValue Store
-  let tierNetwork = {};
-  completeDB.companies.forEach((supplier) => (tierNetwork[supplier.value] = supplier.tier1));
+  let suppliers = new Set();
+  let highRiskSuppliers = new Set();
 
   const returnNetworkObjectForSupplier = (supplierRec, visited = new Set()) => {
-    visited.add(companyName);
     if (visited.has(supplierRec)) {
       return;
     }
@@ -139,6 +125,11 @@ const getNetworkForCompany2 = (companyName) => {
     networkObjectRec.estimated_risk = dataForCompanyRec.estimated_risk;
     networkObjectRec.sales_tier = dataForCompanyRec.sales_tier;
     networkObjectRec.alternatives = dataForCompanyRec.alternatives;
+
+    suppliers.add(supplierRec);
+
+    if (dataForCompanyRec.estimated_risk === "high") highRiskSuppliers.add(supplierRec);
+
     if (!("tier1" in dataForCompanyRec)) return networkObjectRec;
 
     const tier1Filtered = dataForCompanyRec.tier1.filter((el) => !visited.has(el));
@@ -147,24 +138,19 @@ const getNetworkForCompany2 = (companyName) => {
       returnNetworkObjectForSupplier(supplier, visited)
     );
     networkObjectRec.tier1 = networkObjectRec.tier1.filter((item) => item !== undefined);
-    numberOfSuppliers += networkObjectRec.tier1.length;
-    //console.log(networkObjectRec.value + " : " + numberOfSuppliers);
     return networkObjectRec;
   };
 
-  networkObject.tier1 = tierNetwork[companyName].map((supplier) => {
-    return returnNetworkObjectForSupplier(supplier);
-  });
+  let networkObject = returnNetworkObjectForSupplier(companyName);
 
-  networkObject.tier1 = networkObject.tier1.filter((item) => item !== undefined);
-  numberOfSuppliers += networkObject.tier1.length;
+  suppliers.delete(companyName);
+  highRiskSuppliers.delete(companyName);
 
   let mainObject = {};
-  mainObject.companies_count = numberOfSuppliers;
-  mainObject.high_risk_count = 48;
+  mainObject.companies_count = suppliers.size;
+  mainObject.high_risk_count = highRiskSuppliers.size;
   mainObject.tiers = 8;
   mainObject.network = networkObject;
-
   return mainObject;
 };
 

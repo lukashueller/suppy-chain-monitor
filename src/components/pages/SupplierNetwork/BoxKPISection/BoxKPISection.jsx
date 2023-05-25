@@ -55,7 +55,7 @@ const BoxKPISection = (props) => {
               {numberSuppliers}
             </Text>
           )}
-          <Text>Number Of Suppliers</Text>
+          <Text>Number Of Unique Suppliers</Text>
         </Col>
       </Col>
       <Col className="gutter-row" span={6}>

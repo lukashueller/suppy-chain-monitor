@@ -39,14 +39,11 @@ const NetworkGraph = (props) => {
 
   const handleFetch = async () => {
     const networkArrayForTierOneSuppliers = await Promise.all(
-      tierOneSuppliers.map(async (supplier) => {
-        //console.log(await getNetworkForCompany(supplier));
-        return await getNetworkForCompany2(supplier);
-      })
+      tierOneSuppliers.map((supplier) => getNetworkForCompany2(supplier))
     );
 
     if (usedInDrawer) {
-      const { network } = await getNetworkForCompany(tierOneSuppliers[0]);
+      const { network } = getNetworkForCompany2(tierOneSuppliers[0]);
       setGraphData(await generateNetworkHierarchyForSingleSupplier(network));
     } else {
       setLoading(false);
