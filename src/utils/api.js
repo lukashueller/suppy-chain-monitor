@@ -110,6 +110,8 @@ const getNetworkForCompany2 = (companyName) => {
 
   const dataForCompany = getDataForCompanyLocal(companyName, completeDB);
 
+  let numberOfSuppliers = 1;
+  let numberOfHighRiskSuppliers = 0;
   // build basic object frame
   let networkObject = {};
   networkObject.value = companyName;
@@ -145,6 +147,8 @@ const getNetworkForCompany2 = (companyName) => {
       returnNetworkObjectForSupplier(supplier, visited)
     );
     networkObjectRec.tier1 = networkObjectRec.tier1.filter((item) => item !== undefined);
+    numberOfSuppliers += networkObjectRec.tier1.length;
+    //console.log(networkObjectRec.value + " : " + numberOfSuppliers);
     return networkObjectRec;
   };
 
@@ -153,9 +157,10 @@ const getNetworkForCompany2 = (companyName) => {
   });
 
   networkObject.tier1 = networkObject.tier1.filter((item) => item !== undefined);
+  numberOfSuppliers += networkObject.tier1.length;
 
   let mainObject = {};
-  mainObject.companies_count = 61;
+  mainObject.companies_count = numberOfSuppliers;
   mainObject.high_risk_count = 48;
   mainObject.tiers = 8;
   mainObject.network = networkObject;
