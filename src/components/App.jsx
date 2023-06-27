@@ -17,11 +17,11 @@ const App = () => (
     <BrowserRouter basename="/suppy-chain-monitor">
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route path="./list_overview" element={<ListOverview />} />
-        <Route path="./network" element={<SupplierNetwork />} />
-        <Route path="./login" element={<Login />} />
-        <Route path="./signup" element={<Signup />} />
-        <Route path="./downloads" element={<Downloads />} />
+        <Route path="/list_overview" element={<ListOverview />} />
+        <Route path="/network" element={<SupplierNetwork />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/downloads" element={<Downloads />} />
         <Route path="*" element={<Error />} />
         {/* <Route path="/somethingwithId/:id" element={somethingwithId} /> */}
       </Routes>

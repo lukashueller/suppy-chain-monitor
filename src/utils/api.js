@@ -83,6 +83,10 @@ const getDataForCompanyLocal = (companyName, completeDB) => {
   return completeDB.companies.find((company) => company.value === companyName);
 };
 
+const getCompanyDataForCompanyLabelLocal = (companyLabel, completeDB) => {
+  return completeDB.companies.find((company) => company.label === companyLabel);
+};
+
 const getLabelForCompany = (companyName, completeDB) => {
   try {
     return getDataForCompanyLocal(companyName, completeDB).label;
@@ -159,6 +163,7 @@ export {
   getCompleteDatabase,
   getDataForCompany,
   getDataForCompanyLocal,
+  getCompanyDataForCompanyLabelLocal,
   getLabelForCompany,
   getNetworkForCompany,
   getNetworkForCompany2,

@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import { getDataForCompany, getLabelForCompany } from "../../../../utils/api";
+import { getDataForCompanyLocal, getLabelForCompany } from "../../../../utils/api";
 /* eslint-disable-next-line max-len */
 import AboutSection from "../../../multiPageComponents/SupplierInfoSections/AboutSection/AboutSection";
 /* eslint-disable-next-line max-len */
@@ -15,7 +15,7 @@ const SupplierDetailsModal = (props) => {
 
   const handleOk = () => close();
 
-  const companyData = getDataForCompany(supplierValue);
+  const companyData = getDataForCompanyLocal(supplierValue, completeDB);
 
   return (
     <Modal

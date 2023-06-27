@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Row } from "antd";
 
 import HeaderNavbar from "../../multiPageComponents/HeaderNavbar/HeaderNavbar.jsx";
 import EnterFirstSupplierModal from "./EnterFirstSupplierModal/EnterFirstSupplierModal.jsx";
@@ -8,13 +7,14 @@ import NotSignedUpModal from "./NotSignedUpModal/NotSignedUpModal.jsx";
 import SupplierDetailsModal from "./SupplierDetailsModal/SupplierDetailsModal.jsx";
 import SupplierSelector from "../../multiPageComponents/SupplierSelector/SupplierSelector.jsx";
 
-import { updateTierOneSuppliers } from "../../../utils/api.js";
+import { getCompanyDataForCompanyLabelLocal, updateTierOneSuppliers } from "../../../utils/api.js";
 import BoxKPISection from "./BoxKPISection/BoxKPISection.jsx";
 
 const SupplierNetwork = () => {
   const [notSignedInModalOpen, setNotSignedInModalOpen] = useState(false);
   const [supplierDetailsModalOpen, setSupplierDetailsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [nodeValue, setNodeValue] = useState("bosch_gmbh");
   const [usersTierOneSuppliers, setUsersTierOneSuppliers] = useState(
     JSON.parse(sessionStorage.getItem("tierOneSuppliers"))
   );
@@ -40,6 +40,12 @@ const SupplierNetwork = () => {
   }, [usersTierOneSuppliers]);
 
   const handleNodeClick = (evt) => {
+    const nodeCompanyLabel = evt.propagationPath[0].attrs.text;
+    if (nodeCompanyLabel === undefined) return null;
+
+    const completeDB = JSON.parse(sessionStorage.getItem("completeDB"));
+    setNodeValue(getCompanyDataForCompanyLabelLocal(nodeCompanyLabel, completeDB)).value;
+
     const userObject = JSON.parse(sessionStorage.getItem("userObject"));
     if (userObject === null) {
       setNotSignedInModalOpen(true);
@@ -55,7 +61,7 @@ const SupplierNetwork = () => {
       <SupplierDetailsModal
         open={supplierDetailsModalOpen}
         close={() => setSupplierDetailsModalOpen(false)}
-        supplierValue={"bosch_gmbh"}
+        supplierValue={nodeValue}
       />
       <EnterFirstSupplierModal
         open={enterFirstSupplierModalOpen}
